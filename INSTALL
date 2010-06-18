@@ -39,12 +39,9 @@ http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=8100
 
 6) Go to the new "build" directory
 
-7) Type the following command: cmake ..
+7) Type the following command: cmake -G "MinGW Makefiles" ..
 
-8) Now you can open the solution (sln) (file generated in build folder)
-with Visual Studio.
-
-9) After to have opened the project, you can now compile it.
+8) And finally type the command: mingw32-make to compile your project files
 
 ################################################################################
 
