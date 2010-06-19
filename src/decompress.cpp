@@ -29,8 +29,9 @@ void		decompress::loadImage()
 	int x,y,k,j;
  
 	image = bloc = cvLoadImage("C:/Users/Public/Pictures/Sample Pictures/Tulips.jpg");
+	cvShowImage("window origin", image);
 	this->setRecontructionImage(image);
-	cvShowImage("window1", this->ImgRec);
+	cvShowImage("window final au debut", this->ImgRec);
 	height = image->height;
 	width = image->width; 
 	for (x = 0; x <= width; x+=8)
@@ -52,8 +53,8 @@ void		decompress::loadImage()
 		}
 	}
 	//affichage de cette image
-	cvShowImage("window", this->ImgRec);
-	cvWaitKey(5000);
+	cvShowImage("window End", this->ImgRec);
+	cvWaitKey(0);
 }
 
 void		decompress::setRecontructionImage(IplImage *image)
