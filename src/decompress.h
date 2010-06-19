@@ -10,13 +10,17 @@
 class	decompress
 {
 	public:
-		decompress();
-		void	loadImage();
-		bool	CalcBlocSize(int,int,int,int);
+					decompress();
+		void		loadImage();
+		void		saveImage(IplImage*,int,int,IplImage*);
+		void		setRecontructionImage(IplImage*);
+		IplImage	*getRecontructionImage();
+		bool		CalcBlocSize(int,int,int,int);
 
 	private:
 		int		BlocW;
 		int		BlocH;
+		IplImage *ImgRec;
 };
 
 #endif
