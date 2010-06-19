@@ -30,6 +30,7 @@ void		decompress::loadImage()
  
 	image = bloc = cvLoadImage("C:/Users/Public/Pictures/Sample Pictures/Tulips.jpg");
 	this->setRecontructionImage(image);
+	cvShowImage("window1", this->ImgRec);
 	height = image->height;
 	width = image->width; 
 	for (x = 0; x <= width; x+=8)
@@ -47,19 +48,11 @@ void		decompress::loadImage()
 				cvResetImageROI(image);
 				//traitement de l'image suivant la DCT avec le code de GUY
 				this->saveImage(image,x,y,bloc); //permet de commencer la reconstruction par bloc
-
-				/*cvShowImage( "Window", subimg);
-				cvShowImage( "Window 2", image);
-				cvDestroyWindow("Window");
-				cvDestroyWindow("Window 2");*/
 			}
 		}
 	}
-	//recuperation de l'image
-	IplImage *EndImage = this->getRecontructionImage();
-
 	//affichage de cette image
-	cvShowImage("window", EndImage);
+	cvShowImage("window", this->ImgRec);
 	cvWaitKey(5000);
 }
 
@@ -68,6 +61,7 @@ void		decompress::setRecontructionImage(IplImage *image)
 	this->ImgRec = cvCreateImage(cvGetSize(image),
 								image->depth,
 								image->nChannels);
+	cvSet( this->ImgRec, cvScalar( 0, 0, 0 ));
 }
 
 IplImage	*decompress::getRecontructionImage()
@@ -83,14 +77,8 @@ void		decompress::saveImage(IplImage *image,int x, int y, IplImage *bloc)
 	blocH = bloc->height;
 	blocW = bloc->width;
 
-	//reconstitution de l'image suivant chaque bloc
-	/* Avec le x et y nous avons la position pour placer l'image
-	// Il faut donc recuperer ImgRec pour placer le bloc dedans avec les x et y bien positionner
-	*/
-	this->ImgRec = bloc;
-	cvShowImage("window", this->ImgRec);
-	cvWaitKey(0);
-	
-
-
+	CvRect rect = cvRect(x, y, this->BlocW,this->BlocH);
+	cvSetImageROI(this->ImgRec, rect);
+	cvAdd(this->ImgRec,bloc,this->ImgRec,0);
+	cvResetImageROI(this->ImgRec);
 }

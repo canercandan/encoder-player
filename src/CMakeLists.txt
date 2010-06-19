@@ -13,7 +13,7 @@ LINK_DIRECTORIES(${X_OPENCV_LIBRARY_DIRS})
 
 SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
-ADD_EXECUTABLE(opencv openCV.cpp src/videoCodec/dct.cpp)
+ADD_EXECUTABLE(opencv openCV.cpp src/videoCodec/dct.cpp decompress.cpp decompress.h)
 TARGET_LINK_LIBRARIES(opencv ${X_OPENCV_LIBRARIES})
 
 ADD_EXECUTABLE(epitivo main.cpp decompress.cpp)
