@@ -39,8 +39,8 @@ ENDIF()
 ######################################################################################
 
 ADD_SUBDIRECTORY(src)
-#ADD_SUBDIRECTORY(doc)
-#ADD_SUBDIRECTORY(test)
+ADD_SUBDIRECTORY(doc)
+ADD_SUBDIRECTORY(test)
 #ADD_SUBDIRECTORY(application)
 
 ######################################################################################

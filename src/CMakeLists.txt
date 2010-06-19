@@ -16,5 +16,12 @@ SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 ADD_EXECUTABLE(opencv openCV.cpp src/videoCodec/dct.cpp decompress.cpp decompress.h)
 TARGET_LINK_LIBRARIES(opencv ${X_OPENCV_LIBRARIES})
 
-ADD_EXECUTABLE(epitivo main.cpp decompress.cpp)
-TARGET_LINK_LIBRARIES(epitivo ${X_OPENCV_LIBRARIES})
+ADD_EXECUTABLE(${PROJECT_NAME} main.cpp decompress.cpp)
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${X_OPENCV_LIBRARIES})
+
+INSTALL(
+  TARGETS ${PROJECT_NAME}
+  RUNTIME
+  DESTINATION bin
+  COMPONENT applications
+  )
