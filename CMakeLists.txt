@@ -44,11 +44,18 @@ ENDIF()
 
 
 ######################################################################################
-### 3) Include header files path
+### 3) Include header files and library path
 ######################################################################################
 
 INCLUDE_DIRECTORIES(
+  ${X_OPENCV_INCLUDE_DIRS}
   ${CMAKE_CURRENT_SOURCE_DIR}/src
+  ${CMAKE_CURRENT_BINARY_DIR}
+  )
+
+LINK_DIRECTORIES(
+  ${X_OPENCV_LIBRARY_DIRS}
+  ${CMAKE_CURRENT_BINARY_DIR}/lib
   )
 
 ######################################################################################
@@ -117,11 +124,20 @@ ADD_SUBDIRECTORY(doc)
 ### 8) Create executable, link libraries and prepare target
 ######################################################################################
 
-INCLUDE_DIRECTORIES(${X_OPENCV_INCLUDE_DIRS})
-LINK_DIRECTORIES(${X_OPENCV_LIBRARY_DIRS})
+ADD_EXECUTABLE(
+  ${PROJECT_NAME}
+  ${SAMPLE_SRCS}
+  ${SAMPLE_UIS_SRCS}
+  ${SAMPLE_MOC_SRCS}
+  ${SAMPLE_RC_SRCS}
+  ${SAMPLE_TRANS_SRCS}
+  )
 
-ADD_EXECUTABLE(${PROJECT_NAME} ${SAMPLE_SRCS})
-TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${X_OPENCV_LIBRARIES})
+TARGET_LINK_LIBRARIES(
+  ${PROJECT_NAME}
+  ${X_OPENCV_LIBRARIES}
+  ${QT_LIBRARIES}
+  )
 
 INSTALL(
   TARGETS ${PROJECT_NAME}

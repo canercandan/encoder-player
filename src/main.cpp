@@ -2,7 +2,9 @@
 
 int main ()
 {
-	decompress test;
+  decompress test;
 
-	test.loadImage();
+  test.loadImage();
+
+  return 0;
 }

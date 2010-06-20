@@ -21,7 +21,6 @@ int main(int ac, char** av)
   IplImage *image;
   int height,width,step,channels;
   uchar *data;
-  int i,j,k;
   CvCapture *capture;
 
   capture = cvCreateFileCapture(av[1]);

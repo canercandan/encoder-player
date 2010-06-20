@@ -25,11 +25,12 @@
 
 SET (TEST_LIST
   t-hello
+  t-opencv
   )
 
 FOREACH (test ${TEST_LIST})
   ADD_EXECUTABLE(${test} "${test}.cpp")
-  #TARGET_LINK_LIBRARIES(${test})
+  TARGET_LINK_LIBRARIES(${test} ${X_OPENCV_LIBRARIES})
   ADD_TEST(${test} ${test})
 ENDFOREACH (test)
 
