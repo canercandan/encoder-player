@@ -1,27 +1,18 @@
-IF (UNIX)
-  SET(X_OPENCV_INCLUDE_DIRS ${OpenCV_INCLUDE_DIRS})
-  SET(X_OPENCV_LIBRARY_DIRS ${OpenCV_LIBRARY_DIRS})
-  SET(X_OPENCV_LIBRARIES ${OpenCV_LIBRARIES})
-ELSE()
-  SET(X_OPENCV_INCLUDE_DIRS ${OpenCV_INCLUDE_DIR})
-  SET(X_OPENCV_LIBRARY_DIRS ${OpenCV_DIR}/lib)
-  SET(X_OPENCV_LIBRARIES ${OpenCV_LIBS})
-ENDIF()
+######################################################################################
+### 1) Set all needed source files for the project
+######################################################################################
 
-INCLUDE_DIRECTORIES(includes/ ${X_OPENCV_INCLUDE_DIRS})
-LINK_DIRECTORIES(${X_OPENCV_LIBRARY_DIRS})
+FILE(GLOB SOURCES *.cpp)
+SET(SAMPLE_SRCS ${SOURCES} PARENT_SCOPE)
 
-SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
+######################################################################################
 
-ADD_EXECUTABLE(opencv openCV.cpp src/videoCodec/dct.cpp decompress.cpp decompress.h)
-TARGET_LINK_LIBRARIES(opencv ${X_OPENCV_LIBRARIES})
 
-ADD_EXECUTABLE(${PROJECT_NAME} main.cpp decompress.cpp)
-TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${X_OPENCV_LIBRARIES})
+######################################################################################
+### 2) Now where we go ?!?
+######################################################################################
 
-INSTALL(
-  TARGETS ${PROJECT_NAME}
-  RUNTIME
-  DESTINATION bin
-  COMPONENT applications
-  )
+#ADD_SUBDIRECTORY(huffman)
+#ADD_SUBDIRECTORY(video_codec)
+
+######################################################################################
