@@ -1,45 +1,46 @@
-###############################################################################
-##
-## CMakeLists file for epitivo/test
-##
-###############################################################################
-
-
 ######################################################################################
-### 1) Include the sources
+### 1) Set the application properties
 ######################################################################################
+
+# Checks cmake version compatibility
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+
+PROJECT(qt_interface)
 
 ######################################################################################
 
 
 ######################################################################################
-### 2) Specify where CMake can find the libraries
+### 2) Include useful features
 ######################################################################################
 
-######################################################################################
-
-
-######################################################################################
-### 3) Define your targets and link the librairies
-######################################################################################
-
-SET (TEST_LIST
-  t-hello
-  )
-
-FOREACH (test ${TEST_LIST})
-  ADD_EXECUTABLE(${test} "${test}.cpp")
-  #TARGET_LINK_LIBRARIES(${test})
-  ADD_TEST(${test} ${test})
-ENDFOREACH (test)
+# see http://cmake.org/cmake/help/cmake2.6docs.html#module:FindQt4 for a complete list
+FIND_PACKAGE(Qt4 COMPONENTS QtCore QtGui REQUIRED)
+INCLUDE(${QT_USE_FILE})
 
 ######################################################################################
 
 
 ######################################################################################
-### 4) Where we go now ?!?
+### 3) Set compiler definitions
 ######################################################################################
 
-ADD_SUBDIRECTORY(qt_interface)
+IF(UNIX)
+  # enable warnings
+  ADD_DEFINITIONS( -Wall -W -Wextra )
+  # ADD_DEFINITIONS( -Weffc++)
+  # ADD_DEFINITIONS( -g3 )
+ENDIF()
+
+######################################################################################
+
+
+######################################################################################
+### 3) Configure target of executable
+######################################################################################
+
+FILE(GLOB SOURCES *.cpp)
+ADD_EXECUTABLE(${PROJECT_NAME} ${SOURCES})
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${QT_LIBRARIES})
 
 ######################################################################################
