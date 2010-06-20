@@ -1,6 +1,5 @@
-#include "headers/node.hpp"
-#include "headers/compression.hpp"
-#include "headers/common.hpp"
+#include "Compression.h"
+#include "Node.h"
 
 Compression::Compression()
 {
@@ -36,12 +35,12 @@ void  Compression::addSymbol(char symbol)
 
 void  Compression::deleteSymbol(char symbol)
 {
-  map<char, int>::iterator it;
+  std::map<char, int>::iterator it;
   if (this->_tabOcc[symbol])
-  {
-    it = this->_tabOcc.find(symbol);
-    this->_tabOcc.erase(it);
-  }
+    {
+      it = this->_tabOcc.find(symbol);
+      this->_tabOcc.erase(it);
+    }
 }
 
 void  Compression::readFile(const char *file)
@@ -50,23 +49,23 @@ void  Compression::readFile(const char *file)
   char  c;
 
   pFile = fopen(file , "r");
-  if (pFile == NULL) 
+  if (pFile == NULL)
     cerr << "Error opening file" << endl;
   else
-  {
-    while ((c = fgetc(pFile)) != EOF)
     {
-      this->addSymbol(c);
-      this->_fileSize += 1;
+      while ((c = fgetc(pFile)) != EOF)
+	{
+	  this->addSymbol(c);
+	  this->_fileSize += 1;
+	}
+      fclose(pFile);
     }
-    fclose(pFile);
-  }
 }
 
 int Compression::totalSymbols()
 {
   int total = 0;
-  map<char, int>::iterator it;
+  std::map<char, int>::iterator it;
 
   for (it = this->_tabOcc.begin(); it != this->_tabOcc.end(); it++)
     total += (*it).second;
@@ -77,19 +76,19 @@ int Compression::totalSymbols()
 void  Compression::calculateFreq()
 {
   int totalSymbols = this->totalSymbols();
-  map<char, int>::iterator it;
+  std::map<char, int>::iterator it;
   float freq;
 
   for (it = this->_tabOcc.begin(); it != this->_tabOcc.end(); it++)
-  {
-    freq = (100 * (*it).second) / totalSymbols;
-    this->_tabFreq[(*it).first] = freq;
-  }
+    {
+      freq = (100 * (*it).second) / totalSymbols;
+      this->_tabFreq[(*it).first] = freq;
+    }
 }
 
 void  Compression::affTab()
 {
-  map<char, string>::iterator it;
+  std::map<char, std::string>::iterator it;
 
   for (it = this->_tabCode.begin(); it != this->_tabCode.end(); ++it)
     std::cout << (*it).first << " - " << (*it).second << std::endl;
@@ -97,14 +96,14 @@ void  Compression::affTab()
 
 void  Compression::triToList()
 {
-    map<char, int>::iterator it;
+  std::map<char, int>::iterator it;
 
-    for (it = this->_tabOcc.begin(); it != this->_tabOcc.end(); it++)
+  for (it = this->_tabOcc.begin(); it != this->_tabOcc.end(); it++)
     {
       Node *node = new Node((*it).first, (*it).second, NULL, NULL);
       this->_items.push_back(node);
     }
-    this->_items.sort(compare_weight);
+  this->_items.sort(compare_weight);
 }
 
 void  Compression::generateTree()
@@ -126,18 +125,18 @@ void  Compression::generateTree()
   }
 
   firstIt = this->_items.front();
-  string code("");
+  std::string code("");
   firstIt->print(code, _tabCode);
 }
 
-void  Compression::binToChar(ofstream *destFile, const char *file)
+void  Compression::binToChar(std::ofstream *destFile, const char *file)
 {
   int   stock = 0;
   int   taille = 0;
   char  new_car;
-  string code;
+  std::string code;
   FILE  *pFile;
-  ifstream basicFile;
+  std::ifstream basicFile;
   char  c;
   int   i;
   int   size;
@@ -204,15 +203,15 @@ void  Compression::intToStruct(int val, ofstream *destFile)
 
 void  Compression::compressedFile(const char *file)
 {
-  ofstream                    destFile;
-  string                      destFileName(file);
-  map<char, string>::iterator it;
-  map<char, int>::iterator    it2;
+  std::ofstream				destFile;
+  std::string				destFileName(file);
+  std::map<char, std::string>::iterator it;
+  std::map<char, int>::iterator		it2;
 
   destFileName += ".tar.gz";
   destFile.open(destFileName.c_str());
   if (destFile.bad())
-    cerr << "Error creating compressed file" << std::endl;
+    std::cerr << "Error creating compressed file" << std::endl;
   else
   {
     // Taille du fichier

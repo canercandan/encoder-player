@@ -1,4 +1,4 @@
-#include "headers/node.hpp"
+#include "Node.h"
 
 Node::Node(char letter, int freq, Node *left, Node *right)
 {
@@ -8,7 +8,15 @@ Node::Node(char letter, int freq, Node *left, Node *right)
   this->_rightSon = right;
 }
 
-Node::~Node(){}
+Node::~Node()
+{}
+
+bool	Node::operator<(Node& first, Node& second)
+{
+  if (first.getFreq() == second.getFreq())
+    return (first.getLetter() < second.getLetter());
+  return (first.getFreq() < second.getFreq());
+}
 
 char  Node::getLetter()
 {
@@ -57,9 +65,9 @@ void  Node::setRightSon(Node &rightNode)
 }
 
 
-void  Node::print(string &code, map<char, string> &tabCode)
+void  Node::print(std::string &code, std::map<char, std::string> &tabCode)
 {
-  string::iterator it;
+  std::string::iterator it;
 
   if ((this->_leftSon != NULL) && (this->_rightSon != NULL))
   {
