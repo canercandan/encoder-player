@@ -43,6 +43,8 @@ bool	DCT::initialize()
     }
   this->isInitialized = true;
   std::cout << "Initialization complete." << std::endl;
+
+  return true;
 }
 
 void	DCT::referenceDCT(unsigned char* data, short int* result)

@@ -9,6 +9,11 @@
 ### 1) Include the sources
 ######################################################################################
 
+INCLUDE_DIRECTORIES(
+  ${CMAKE_SOURCE_DIR}/src/huffman
+  ${CMAKE_SOURCE_DIR}/src/video_codec
+  )
+
 ######################################################################################
 
 
@@ -26,11 +31,12 @@
 SET (TEST_LIST
   t-hello
   t-opencv
+  t-huffman
   )
 
 FOREACH (test ${TEST_LIST})
   ADD_EXECUTABLE(${test} "${test}.cpp")
-  TARGET_LINK_LIBRARIES(${test} ${X_OPENCV_LIBRARIES})
+  TARGET_LINK_LIBRARIES(${test} ${X_OPENCV_LIBRARIES} huffman video_codec)
   ADD_TEST(${test} ${test})
 ENDFOREACH (test)
 

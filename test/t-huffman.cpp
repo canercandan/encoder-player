@@ -1,3 +1,5 @@
+#include <cstring>
+
 #include <iostream>
 
 #include "Compression.h"

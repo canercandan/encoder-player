@@ -21,12 +21,12 @@ void  Decompression::readFile(const char *file)
   //destFileName = destFileName.substr(0, destFileName.size() - 7);
   destFile.open(destFileName.c_str());
   if (destFile.bad())
-    cerr << "Error creating decompressed file" << std::endl;
+    std::cerr << "Error creating decompressed file" << std::endl;
   else
     {
       pFile = fopen(file, "r");
       if (pFile == NULL)
-	cerr << "Error opening file" << endl;
+	std::cerr << "Error opening file" << std::endl;
       else
 	{
 	  fileSize(pFile);
@@ -102,7 +102,7 @@ void  Decompression::createTabOcc(FILE *file)
 
 void  Decompression::affTab()
 {
-  std::map<char, string>::iterator it;
+  std::map<char, std::string>::iterator it;
 
   for (it = this->_tabCode.begin(); it != this->_tabCode.end(); ++it)
     std::cout << (*it).first << " - " << (*it).second << std::endl;
@@ -117,7 +117,7 @@ void  Decompression::triToList()
       Node *node = new Node((*it).first, (*it).second, NULL, NULL);
       this->_items.push_back(node);
     }
-  this->_items.sort(compare_weight);
+  this->_items.sort();
 }
 
 void  Decompression::generateTree()
@@ -135,7 +135,7 @@ void  Decompression::generateTree()
       weight = firstIt->getFreq() + secondIt->getFreq();
       Node *node = new Node(0, weight, firstIt, secondIt);
       this->_items.push_back(node);
-      this->_items.sort(compare_weight);
+      this->_items.sort();
     }
 
   firstIt = this->_items.front();

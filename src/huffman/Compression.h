@@ -9,7 +9,7 @@
 
 #include "Node.h"
 
-#extern "C"
+extern "C"
 {
   struct SIZE
   {

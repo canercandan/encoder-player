@@ -8,22 +8,22 @@ Compression::Compression()
 
 Compression::~Compression() {}
 
-void  Compression::setTabOcc(map<char, int> tabOcc)
+void  Compression::setTabOcc(std::map<char, int> tabOcc)
 {
   this->_tabOcc = tabOcc;
 }
 
-map<char, int>  Compression::getTabOcc()
+std::map<char, int>  Compression::getTabOcc()
 {
   return (this->_tabOcc);
 }
 
-void  Compression::setTabFreq(map<char, float> tabFreq)
+void  Compression::setTabFreq(std::map<char, float> tabFreq)
 {
   this->_tabFreq = tabFreq;
 }
 
-map<char, float>  Compression::getTabFreq()
+std::map<char, float>  Compression::getTabFreq()
 {
   return (this->_tabFreq);
 }
@@ -50,7 +50,7 @@ void  Compression::readFile(const char *file)
 
   pFile = fopen(file , "r");
   if (pFile == NULL)
-    cerr << "Error opening file" << endl;
+    std::cerr << "Error opening file" << std::endl;
   else
     {
       while ((c = fgetc(pFile)) != EOF)
@@ -103,7 +103,7 @@ void  Compression::triToList()
       Node *node = new Node((*it).first, (*it).second, NULL, NULL);
       this->_items.push_back(node);
     }
-  this->_items.sort(compare_weight);
+  this->_items.sort();
 }
 
 void  Compression::generateTree()
@@ -121,7 +121,7 @@ void  Compression::generateTree()
     weight = firstIt->getFreq() + secondIt->getFreq();
     Node *node = new Node(0, weight, firstIt, secondIt);
     this->_items.push_back(node);
-    this->_items.sort(compare_weight);
+    this->_items.sort();
   }
 
   firstIt = this->_items.front();
@@ -141,15 +141,15 @@ void  Compression::binToChar(std::ofstream *destFile, const char *file)
   int   i;
   int   size;
 
-  basicFile.open (file, ios::binary | ios::in);
-  basicFile.seekg(0, ios::end);
+  basicFile.open (file, std::ios::binary | std::ios::in);
+  basicFile.seekg(0, std::ios::end);
   size = basicFile.tellg();
 
   pFile = fopen(file , "r");
   if (pFile == NULL)
-    cerr << "Error opening file" << endl;
+    std::cerr << "Error opening file" << std::endl;
   else if (basicFile.bad())
-    cerr << "Error opening file" << endl;
+    std::cerr << "Error opening file" << std::endl;
   else
   {
     while (size > 0 && (c = fgetc(pFile)))
@@ -192,7 +192,7 @@ void  Compression::binToChar(std::ofstream *destFile, const char *file)
 /*
  * Conversion de la taille du fichier sur 4 caracteres
  */
-void  Compression::intToStruct(int val, ofstream *destFile)
+void  Compression::intToStruct(int val, std::ofstream *destFile)
 {
   SIZE *s;
   int *si = &val;

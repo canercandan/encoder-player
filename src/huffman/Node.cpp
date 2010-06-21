@@ -11,7 +11,7 @@ Node::Node(char letter, int freq, Node *left, Node *right)
 Node::~Node()
 {}
 
-bool	Node::operator<(Node& first, Node& second)
+bool	operator<(Node& first, Node& second)
 {
   if (first.getFreq() == second.getFreq())
     return (first.getLetter() < second.getLetter());

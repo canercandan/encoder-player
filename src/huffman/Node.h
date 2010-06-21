@@ -10,7 +10,7 @@ public:
   Node(char letter, int freq, Node *left, Node *right);
   ~Node();
 
-  bool	operator<(Node&, Node&);
+  friend bool	operator<(Node&, Node&);
 
   char  getLetter();
   void  setLetter(char letter);
