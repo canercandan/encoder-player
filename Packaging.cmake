@@ -54,7 +54,7 @@ SET(CPACK_PACKAGE_INSTALL_DIRECTORY "${PROJECT_NAME} ${PROJECT_VERSION_MAJOR}.${
 
 
 ######################################################################################
-### 3) Set up debian packaging information
+### 4) Set up debian packaging information
 ######################################################################################
 
 SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libqtgui4, libqt4-xml, libqt4-network, libqt4-core, libstdc++6, libgcc1, libc6, libcv4, libhighgui4, libcvaux4")
@@ -66,7 +66,7 @@ SET(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
 
 
 ######################################################################################
-### 3) And finally, include cpack, this is the last thing to do.
+### 5) And finally, include cpack, this is the last thing to do.
 ######################################################################################
 
 INCLUDE(CPack)
