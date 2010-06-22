@@ -1,5 +1,5 @@
 #include <cstdlib>
-
+#include "videoCodec.h"
 #include <iostream>
 
 #include "decompress.h"
@@ -28,10 +28,17 @@ void	decompress::loadImage()
 {
   	IplImage *image;
   	IplImage *bloc;
+	videoCodec	VC;
+	int			tab[64];
+
+	for(int u = 0; u < 64 < u++;)
+		tab[u] = 0;
+
+
   	int height,width;
   	int x,y;
 
-  	image = bloc = cvLoadImage("C:/Users/Public/Pictures/Sample Pictures/Tulips.jpg");
+  	image = bloc = cvLoadImage("D:/Images/lorient-2008/test/IMGP0202.JPG");
   	height = image->height;
   	width = image->width;
   	this->setRecontructionImage(height,width);
@@ -53,19 +60,26 @@ void	decompress::loadImage()
 	    	}
 		}
     }
+	VC.SaveImgInList(this->ImgRec);
+	VC.createFile("test.GuiGuy");
+	VC.SaveFlux();
 }
 
 void	decompress::setRecontructionImage(int height,int width)
 {
-	int size = height * width;
-	int i = 0;
+	this->ImgRec = new int*[width];
+	for(int i=0; i < width; i++)
+		this->ImgRec[i] = new int[height];
 
-	this->ImgRec = (int**)malloc(height*sizeof(int*));
-	while(i < height)
+	int i,j = 0;
+	for(i=0; i < width; i++)
 	{
-		this->ImgRec[i] = (int*)malloc(width*sizeof(int*));
-		i++;
+		for(j=0; j < height; j++)
+		{
+			this->ImgRec[i][j] = 0;
+		}
 	}
+	std::cout << height << std::endl;
 }
 
 int		**decompress::getRecontructionImage()
@@ -81,6 +95,7 @@ void	decompress::saveImage(int *tab,int x, int y, IplImage *bloc)
 	int	i = 0;
 	
 	// x=1 y=4 blocH=8 blocW=8
+	//hauteur x largeur + i
 	while (tab[i] && i < blocSize)
 	{
 		this->ImgRec[x+i][y+i] = tab[i];
