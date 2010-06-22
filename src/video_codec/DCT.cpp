@@ -11,6 +11,26 @@ DCT::~DCT()
     delete [] this->productLookupTable;
 }
 
+DCT::DCT(const DCT & copy)
+{
+	if (this->isInitialized)
+	{
+		this->isInitialized = copy.isInitialized;
+		this->productLookupTable = copy.productLookupTable;
+		this->reciprocalRootTwo = copy.reciprocalRootTwo;
+	}
+}
+
+DCT&	DCT::operator=(const DCT & copy)
+{
+	if (this->isInitialized)
+	{
+		this->isInitialized = copy.isInitialized;
+		this->productLookupTable = copy.productLookupTable;
+		this->reciprocalRootTwo = copy.reciprocalRootTwo;
+	}
+}
+
 bool	DCT::getIsInitialized()
 {
   return (this->isInitialized);

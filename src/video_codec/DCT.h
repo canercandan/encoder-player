@@ -9,12 +9,14 @@
 #define DCT_PI		3.14159265358979323846
 #define DCT_RSQRT_2     0.70710678118654752438
 
-class	DCT
+class		DCT
 {
 public:
   /**					C-TOR				**/
   DCT();
   ~DCT();
+  DCT(const DCT &);
+  DCT&		operator=(const DCT &);
 
   /**					METHODS				**/
 
