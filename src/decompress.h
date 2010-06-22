@@ -19,9 +19,7 @@ public:
 private:
   int		BlocW;
   int		BlocH;
-  int		**ImgRec;
-  //IplImage	*ImgRec;
-
+  int		**ImgRec; //ImgRec[width][height]
 };
 
 #endif // !DECOMPRESS_H

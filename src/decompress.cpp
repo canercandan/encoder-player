@@ -29,11 +29,6 @@ void	decompress::loadImage()
   	IplImage *image;
   	IplImage *bloc;
 	videoCodec	VC;
-	int			tab[64];
-
-	for(int u = 0; u < 64 < u++;)
-		tab[u] = 0;
-
 
   	int height,width;
   	int x,y;
@@ -67,19 +62,10 @@ void	decompress::loadImage()
 
 void	decompress::setRecontructionImage(int height,int width)
 {
+	//imRec[width][height]
 	this->ImgRec = new int*[width];
 	for(int i=0; i < width; i++)
 		this->ImgRec[i] = new int[height];
-
-	int i,j = 0;
-	for(i=0; i < width; i++)
-	{
-		for(j=0; j < height; j++)
-		{
-			this->ImgRec[i][j] = 0;
-		}
-	}
-	std::cout << height << std::endl;
 }
 
 int		**decompress::getRecontructionImage()
