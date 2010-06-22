@@ -11,15 +11,17 @@ public:
   decompress();
 
   void		loadImage();
-  void		saveImage(IplImage*,int,int,IplImage*);
-  void		setRecontructionImage(IplImage*);
-  IplImage	*getRecontructionImage();
+  void		saveImage(int*,int,int,IplImage*);
+  void		setRecontructionImage(int,int);
+  int		**getRecontructionImage();
   bool		CalcBlocSize(int,int,int,int);
 
 private:
   int		BlocW;
   int		BlocH;
-  IplImage	*ImgRec;
+  int		**ImgRec;
+  //IplImage	*ImgRec;
+
 };
 
 #endif // !DECOMPRESS_H
