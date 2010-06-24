@@ -51,3 +51,13 @@ void						Quantizer::quantizeDCTMatrix(short int * bloc)
 		bloc[i] = lrint(tmp);
 	}
 }
+
+void						Quantizer::unquantizeDCTMatrix(short int * bloc)
+{
+	double					tmp;
+	for (int i = 0; i < 64; i++)
+	{
+		tmp = bloc[i] * this->_matrixCoeff[i];
+		bloc[i] = lrint(tmp);
+	}
+}

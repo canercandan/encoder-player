@@ -36,6 +36,12 @@ static int						jpegStandardQuantizationMatrix[64] =
 	*the size of the param has to be 8*8
 	**/
 	void						quantizeDCTMatrix(short int *);
+	/**
+	*@param short int * the array of DCT frequencies to be unquantized
+	*the size of the param has to be 8*8
+	**/
+	void						unquantizeDCTMatrix(short int *);
+	
 	private:
 	/**							C-TOR					**/
 	/**						ATTRIBUTES					**/

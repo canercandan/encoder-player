@@ -41,14 +41,22 @@ public:
    * @param short int * the array to be returned with the frequency data
    * @warning both array must be initialise with 8 rows and 8 columns
    **/
-  void		referenceDCT(unsigned char* data, short int* result);
+  void		referenceDCT(unsigned char*, short int*);
+  
+  /**
+  * @param signed short int the array for the data's frequency
+  * @param unsigned char * the adapted data
+  * convert the frequency into a an array of data
+  **/
+  void		DCT::referenceIDCT(short int*, unsigned char*);
 
 private:
   /**					METHODS				**/
 
   /**					ATTRIBUTES			**/
   bool		isInitialized;
-  double*	productLookupTable;
+  double	*productLookupTable;
+  double 	*idctProductLookupTable;
   double	reciprocalRootTwo;
 };
 
