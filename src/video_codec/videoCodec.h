@@ -9,10 +9,11 @@ class	videoCodec
 {
 public:
   videoCodec();
-  void		SaveImgInList(short int **, int,int);
+  void		SaveImgInList(int **, int,int);
   void		createFile(std::string);
   void		compression(int,int);
-  int		**decompression();
+  void		decompression();
+  int		**lectureFichier();
   void		SaveFlux(); // creation fichier type
 
 private:
@@ -20,4 +21,4 @@ private:
   std::string			FileName;
 };
 
-#endif // !VIDEOCODEC_H
+#endif

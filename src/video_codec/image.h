@@ -10,16 +10,16 @@ public:
   image();
   int	getWidth();
   int	getHeight();
-  short int	**getTab();
+  int	**getTab();
   void	setWidth(int);
   void	setHeight(int);
-  void	setTab(short int **);
+  void	setTab(int **,int,int);
   
 
 private:
   int		width;
   int		height;
-  short int		**tab;
+  int		**tab;
 };
 
 #endif // !IMAGE_H

@@ -38,7 +38,7 @@ void	decompress::loadImage()
   	int height,width;
   	int x,y;
 
-  	image = bloc = cvLoadImage("C:/Users/guillaume/Pictures/26978_1389454369924_1039030242_1160709_2796358_n.jpg");
+  	image = bloc = cvLoadImage("C:/Users/guillaume/Pictures/1.jpg");
   	height = image->height;
   	width = image->width;
   	this->setRecontructionImage(height,width);
@@ -58,27 +58,25 @@ void	decompress::loadImage()
 				dct.referenceDCT((uchar *)bloc->imageData,temp);
 				Q.quantizeDCTMatrix(temp);
 				
-	      		//traitement de l'image suivant la DCT avec le code de GUY
-	      		this->saveImage(temp,x,y,bloc); //permet de commencer la reconstruction par bloc
+	      		this->saveImage(temp,x,y,bloc);
 	    	}
 		}
     }
 	VC.SaveImgInList(this->ImgRec,width,height);
-	
+	delete(this->ImgRec);
 	VC.createFile("test.GuiGuy");
-	
 	VC.SaveFlux();
 }
 
 void	decompress::setRecontructionImage(int height,int width)
 {
 	//imRec[width][height]
-	this->ImgRec = new short int*[width];
+	this->ImgRec = new int*[width];
 	for(int i=0; i < width; i++)
-		this->ImgRec[i] = new short int[height];
+		this->ImgRec[i] = new int[height];
 }
 
-short int		**decompress::getRecontructionImage()
+int		**decompress::getRecontructionImage()
 {
   	return (this->ImgRec);
 }
@@ -92,18 +90,16 @@ void	decompress::saveImage(short int *tab,int x, int y, IplImage *bloc)
 	int j = 0;
 	int count = 0;
 	
-	// x=1 y=4 blocH=8 blocW=8
-	//hauteur x largeur + i
 	while (count < blocSize)
 	{
-		if ((i == 7) && (j == 7))
+		if ((i == 8) && (j == 8))
 			break ;
-		if (j == 7)
+		if (j == 8)
 		{
 			i++;
 			j = 0;
 		}
-		this->ImgRec[x+i][y+j] = tab[count];
+		this->ImgRec[x+i][y+j] = (int)tab[count];
 		j++;
 		count++;
 	}

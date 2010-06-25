@@ -13,13 +13,13 @@ public:
   void		loadImage();
   void		saveImage(short int*,int,int,IplImage*);
   void		setRecontructionImage(int,int);
-  short int		**getRecontructionImage();
+  int		**getRecontructionImage();
   bool		CalcBlocSize(int,int,int,int);
 
 private:
-  int		BlocW;
-  int		BlocH;
-  short int		**ImgRec; //ImgRec[width][height]
+  int			BlocW;
+  int			BlocH;
+  int		**ImgRec; //ImgRec[width][height]
 };
 
 #endif // !DECOMPRESS_H

@@ -14,9 +14,15 @@ void 	image::setWidth(int width)
 	this->width = width;
 }
 
-void	image::setTab(short int **tab)
+void	image::setTab(int **tab,int width,int height)
 {
-	this->tab = tab;
+	this->tab = new int*[width];
+	for(int i=0; i < width; i++)
+		this->tab[i] = new int[height];
+
+	for(int i=0; i<width;i++)
+		for(int j=0; j<height;j++)
+			this->tab[i][j] = tab[i][j];
 }
 
 int		image::getHeight()
@@ -29,7 +35,7 @@ int 	image::getWidth()
 	return(this->width);
 }
 
-short int		**image::getTab()
+int		**image::getTab()
 {
 	return(this->tab);
 }
