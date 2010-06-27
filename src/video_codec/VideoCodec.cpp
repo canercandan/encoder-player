@@ -6,18 +6,16 @@
 #include <iostream>
 #include <cstring>
 
-#include "videoCodec.h"
-#include "huffman.h"
-
+#include "Huffman.h"
 #include "DCT.h"
 #include "Quantizer.h"
-#include "videoCodec.h"
-#include "decompress.h"
+#include "VideoCodec.h"
+#include "Decompress.h"
 
-videoCodec::videoCodec()
+VideoCodec::VideoCodec()
 {}
 
-void	videoCodec::SaveImgInList(int **tab, int width, int height)
+void	VideoCodec::SaveImgInList(int **tab, int width, int height)
 {
     image 	img;
     img.setHeight(height);
@@ -27,7 +25,7 @@ void	videoCodec::SaveImgInList(int **tab, int width, int height)
     this->ListImage.push_back(img);
 }
 
-void		videoCodec::createFile(std::string filename) //creation du fichier de sortie avec le nom que tu veu
+void		VideoCodec::createFile(std::string filename) //creation du fichier de sortie avec le nom que tu veu
 {
     FILE * file;
     this->FileName = filename;
@@ -47,7 +45,7 @@ int get_file_size(FILE *fp)
     return size;
 }
 
-void		videoCodec::SaveFlux() //enregistrement de la liste remplie des datas images dans le flux de sortie en binaire
+void		VideoCodec::SaveFlux() //enregistrement de la liste remplie des datas images dans le flux de sortie en binaire
 {
     FILE *file = fopen(this->FileName.c_str(), "w");
     std::list<image>::iterator	it;
@@ -86,7 +84,7 @@ void		videoCodec::SaveFlux() //enregistrement de la liste remplie des datas imag
 	}
 }
 
-void		videoCodec::compression(int width, int height)
+void		VideoCodec::compression(int width, int height)
 {
     std::cout << "Starting compressing image" << std::endl;
     unsigned char *dest,*sour;
@@ -110,7 +108,7 @@ void		videoCodec::compression(int width, int height)
     std::cout << "Deleting source file" << std::endl;
 }
 
-void	videoCodec::decompression()
+void	VideoCodec::decompression()
 {
     std::cout << "Starting decompressing image" << std::endl;
     unsigned char *dest,*sour;
@@ -136,7 +134,7 @@ void	videoCodec::decompression()
     std::cout << "decompressing finish" << std::endl;
 }
 
-int		**videoCodec::lectureFichier()
+int		**VideoCodec::lectureFichier()
 {
     std::cout << "Starting reading file" << std::endl;
     int height,width,i,j,flag;

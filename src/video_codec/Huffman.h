@@ -1,9 +1,7 @@
-
 #ifndef Huffman_h
 #define Huffman_h
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 /*       huffman trees            */
 typedef struct hufftree {
@@ -33,8 +31,6 @@ typedef struct symbheader {
     unsigned int freq;       //its freq
     unsigned char symb;      //symbol
 } *PSYMBHDR;
-
-
 
 class Huffman
 {
@@ -98,13 +94,16 @@ inline int Huffman::get_uncompressed_size(unsigned char *sour)
 /*             get bits from sour             */
 inline int Huffman::getnextbit()
 {
-    if (bitslast) {
-	return 0x1 & (*psour >> (--bitslast));
-    } else {
-	psour++;
-	bitslast = 8;
-	return 0x1 & (*psour >> (--bitslast));
-    }
+    if (bitslast)
+	{
+	    return 0x1 & (*psour >> (--bitslast));
+	}
+    else
+	{
+	    psour++;
+	    bitslast = 8;
+	    return 0x1 & (*psour >> (--bitslast));
+	}
 }
 
 #endif

@@ -5,10 +5,10 @@
 #include <cxcore.h>
 #include <highgui.h>
 
-class	decompress
+class	Decompress
 {
 public:
-  decompress();
+  Decompress();
 
   void		loadImage();
   void		saveImage(short int*,int,int,IplImage*);

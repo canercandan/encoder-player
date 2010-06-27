@@ -1,6 +1,6 @@
 #include <cstring>
 
-#include "huffman.h"
+#include "Huffman.h"
 
 /*    IN sour = uncompressed code usize BYTES
      OUT dest = compressed code csize BYTES     */
