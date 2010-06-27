@@ -48,7 +48,7 @@ public:
   * @param unsigned char * the adapted data
   * convert the frequency into a an array of data
   **/
-  void		DCT::referenceIDCT(short int*, unsigned char*);
+  void		referenceIDCT(short int*, unsigned char*);
 
 private:
   /**					METHODS				**/

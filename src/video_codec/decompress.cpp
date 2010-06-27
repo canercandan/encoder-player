@@ -1,5 +1,5 @@
 #include <cstdlib>
-#include "dct.h"
+#include "DCT.h"
 #include "Quantizer.h"
 #include "videoCodec.h"
 #include <iostream>

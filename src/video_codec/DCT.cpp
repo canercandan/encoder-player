@@ -29,6 +29,8 @@ DCT&	DCT::operator=(const DCT & copy)
 		this->productLookupTable = copy.productLookupTable;
 		this->reciprocalRootTwo = copy.reciprocalRootTwo;
 	}
+
+	return *this; // FIXME: to avoid the return value missing
 }
 
 bool	DCT::getIsInitialized()

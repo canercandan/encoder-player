@@ -32,6 +32,7 @@ SET (TEST_LIST
   t-hello
   t-opencv
   t-huffman
+  t-webcam
   )
 
 FOREACH (test ${TEST_LIST})
@@ -48,5 +49,6 @@ ENDFOREACH (test)
 ######################################################################################
 
 ADD_SUBDIRECTORY(qt_interface)
+ADD_SUBDIRECTORY(qt_opencv)
 
 ######################################################################################
