@@ -133,7 +133,7 @@ void	VideoCodec::decompression()
     std::cout << "decompressing finish" << std::endl;
 }
 
-std::pair<int *, int **>	VideoCodec::lectureFichier()
+Image		VideoCodec::lectureFichier()
 {
     std::cout << "Starting reading file" << std::endl;
     int				height,width,i,j,flag;
@@ -201,12 +201,16 @@ std::pair<int *, int **>	VideoCodec::lectureFichier()
 		    j++;
 		}
 	}
-    std::cout << "Tableau created" << std::endl;
+	Image						ObjImage;
+	ObjImage.setHeight(height);
+	ObjImage.setWidth(width);
+	ObjImage.setTab(imgDec,width,height);
+   /* std::cout << "Tableau created" << std::endl;
 	std::pair<int *, int **>	res;
 	int							dimensions[2];
 	dimensions[0] = height;
 	dimensions[1] = width;
 	res.first = dimensions;
-	res.second = imgDec;
-    return (res);
+	res.second = imgDec;*/
+    return (ObjImage);
 }

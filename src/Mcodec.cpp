@@ -63,7 +63,7 @@ void				Mcodec::compressImage(std::string image_path)
 void								Mcodec::uncompressImage()
 {
 	VideoCodec						vc;
-	std::pair<int *, int **>		infos;
+	Image							infos; //Modification du type de infos (objet image)
 	short int						*values;
 	unsigned char					*datas;
 	DCT								dct;
@@ -76,13 +76,13 @@ void								Mcodec::uncompressImage()
 	vc.decompression();
 	std::cout << "lecture du fichier" << std::endl;
 	infos = vc.lectureFichier();
-	height = (infos.first)[0];
-	width = (infos.first)[1];
+	height = infos.getHeight(); //recuperation de la heuteur
+	width = infos.getWidth(); //recuperation de la largeur
 	if ((height * width) % 8)
 		return ;
 	image = cvCreateImage(cvSize(height, width),IPL_DEPTH_8U,1);
 	std::cout << "conversion tableau begin." << std::endl;
-	values = this->twoDimensionToOneDimension(infos.second, height, width);
+	values = this->twoDimensionToOneDimension(infos.getTab(), height, width); //on passe directement le tableau grace a l'objet infos
 	std::cout << "conversion tableau end." << std::endl;
 	datas = (uchar *) image->imageData;
 	std::cout << "reverse dct and quantization starting." << std::endl;

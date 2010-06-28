@@ -18,9 +18,9 @@ public:
     void						compression(int,int);
     void						decompression();
 	/**
-	*@return Pair<int *, int **> containing the array  of image,s dimension and it's datas
+	*@return Image an object from Image class containing two int (height and width) and int **
 	**/
-    std::pair<int *, int **>	lectureFichier();
+    Image						lectureFichier();
     void						SaveFlux(); /* creation fichier type*/
 
 private:
