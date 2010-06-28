@@ -10,14 +10,13 @@
 #include "DCT.h"
 #include "Quantizer.h"
 #include "VideoCodec.h"
-#include "Decompress.h"
 
 VideoCodec::VideoCodec()
 {}
 
 void	VideoCodec::SaveImgInList(int **tab, int width, int height)
 {
-    image 	img;
+    Image 	img;
     img.setHeight(height);
     img.setWidth(width);
     img.setTab(tab,width,height);
@@ -48,7 +47,7 @@ int get_file_size(FILE *fp)
 void		VideoCodec::SaveFlux() //enregistrement de la liste remplie des datas images dans le flux de sortie en binaire
 {
     FILE *file = fopen(this->FileName.c_str(), "w");
-    std::list<image>::iterator	it;
+    std::list<Image>::iterator	it;
     int width=0,height=0;
 
     it = this->ListImage.begin();
@@ -76,10 +75,10 @@ void		VideoCodec::SaveFlux() //enregistrement de la liste remplie des datas imag
 		    fprintf(file, "%c", 'O');
 		    fclose(file);
 		    this->compression(width,height);
-		    ::sleep(1000);
-		    this->decompression();
+		    /*::sleep(1000);*/
+		    /*this->decompression();
 		    int **Endtab = this->lectureFichier();
-		    (void)Endtab;
+		    (void)Endtab;*/
 		}
 	}
 }
@@ -134,18 +133,18 @@ void	VideoCodec::decompression()
     std::cout << "decompressing finish" << std::endl;
 }
 
-int		**VideoCodec::lectureFichier()
+std::pair<int *, int **>	VideoCodec::lectureFichier()
 {
     std::cout << "Starting reading file" << std::endl;
-    int height,width,i,j,flag;
-    int **imgDec;
-    std::string	str;
-    char c = 'a';
-    char a = 'a';
-    int count = 0;
+    int				height,width,i,j,flag;
+    int				**imgDec;
+    std::string		str;
+    char			c = 'a';
+    char			a = 'a';
+    int				count = 0;
     i = j = flag=0;
 
-    FILE *f = fopen("image_decompress", "r");
+    FILE			*f = fopen("image_decompress", "r");
     while (flag != 3)
 	{
 	    if (flag == 1)
@@ -203,5 +202,11 @@ int		**VideoCodec::lectureFichier()
 		}
 	}
     std::cout << "Tableau created" << std::endl;
-    return (imgDec);
+	std::pair<int *, int **>	res;
+	int							dimensions[2];
+	dimensions[0] = height;
+	dimensions[1] = width;
+	res.first = dimensions;
+	res.second = imgDec;
+    return (res);
 }
