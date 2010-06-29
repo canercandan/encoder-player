@@ -20,6 +20,14 @@ bool	Mcodec::CalcBlocSize(int width, int height, int y, int x)
 	return true;
 }
 
+void				Mcodec::dislay_picture(IplImage *image)
+{
+	cvNamedWindow("mwindow");
+    cvShowImage("mwindow", image);
+    cvWaitKey();
+    cvDestroyWindow("mwindow");
+}
+
 void				Mcodec::compressImage(std::string image_path)
 {
     IplImage		*image;
@@ -91,6 +99,7 @@ void								Mcodec::uncompressImage()
 		qt.unquantizeDCTMatrix(values + cpt);
 		dct.referenceIDCT(values + cpt, datas +cpt);
 	}
+	this->dislay_picture(image);
 	std::cout << "reverse dct and quantization complete." << std::endl;
 	delete (values);
 }

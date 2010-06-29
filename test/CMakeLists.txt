@@ -33,6 +33,7 @@ SET (TEST_LIST
   t-opencv
   t-huffman
   t-webcam
+  t-video_codec1
   )
 
 FOREACH (test ${TEST_LIST})

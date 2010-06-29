@@ -190,27 +190,21 @@ Image		VideoCodec::lectureFichier()
 	    else
 		{
 		    flag=1;
-		    if ( i == width && j == height)
-			break;
 		    if (j == (height-1))
 			{
 			    j = 0;
 			    i++;
 			}
+		    if ( i >= width && j >= height)
+			break;
 		    imgDec[i][j] = atoi(str.c_str());
 		    j++;
 		}
 	}
+	fclose(f);
 	Image						ObjImage;
 	ObjImage.setHeight(height);
 	ObjImage.setWidth(width);
 	ObjImage.setTab(imgDec,width,height);
-   /* std::cout << "Tableau created" << std::endl;
-	std::pair<int *, int **>	res;
-	int							dimensions[2];
-	dimensions[0] = height;
-	dimensions[1] = width;
-	res.first = dimensions;
-	res.second = imgDec;*/
     return (ObjImage);
 }
