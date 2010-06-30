@@ -1,3 +1,5 @@
+#include <cstdlib>
+
 #include		<iostream>
 #include		"video_codec/VideoCodec.h"
 #include		"video_codec/DCT.h"

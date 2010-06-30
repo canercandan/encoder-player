@@ -10,9 +10,9 @@
 #include 	<utility>
 #include 	<string>
 /**			INCLUDES				**/
-#include	"video_codec/DCT.h"
-#include	"video_codec/Quantizer.h"
-#include	"video_codec/VideoCodec.h"
+#include	"DCT.h"
+#include	"Quantizer.h"
+#include	"VideoCodec.h"
 
 class		Mcodec
 {
