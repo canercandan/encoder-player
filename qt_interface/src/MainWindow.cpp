@@ -1,6 +1,6 @@
-#include "mainWindow.hpp"
-#include "myVideoList.hpp"
-#include "myPlayer.hpp"
+#include "MainWindow.hpp"
+#include "MyVideoList.hpp"
+#include "MyPlayer.hpp"
 #include "playButton.hpp"
 #include "pauseButton.h"
 #include "windowTitleBar.h"
@@ -13,7 +13,7 @@
 #include <QSlider>
 #include <QPainter>
 
-mainWindow::mainWindow(QWidget *parent) : QWidget(parent)
+MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
 {
     qDebug() << "building the window";
     setFixedSize(800, 600);
@@ -29,11 +29,11 @@ mainWindow::mainWindow(QWidget *parent) : QWidget(parent)
     connect(quit, SIGNAL(clicked()), qApp, SLOT(quit()));
 
     QGridLayout *grid = new QGridLayout;
-    myVideoList *videoList = new myVideoList;
+    MyVideoList *videoList = new MyVideoList;
     videoList->fillInTheList();
     grid->addWidget(videoList, 0, 0);
 
-    qtInterface::myPlayer *tmp = new qtInterface::myPlayer;
+    qtInterface::MyPlayer *tmp = new qtInterface::MyPlayer;
     grid->addWidget(tmp, 0, 1, 0, 2);
     grid->setColumnMinimumWidth(1, 550);
 
@@ -55,12 +55,12 @@ mainWindow::mainWindow(QWidget *parent) : QWidget(parent)
     setLayout(layout);
 }
 
-mainWindow::~mainWindow()
+MainWindow::~MainWindow()
 {
     qDebug() <<"deleting the window";
 }
 
-void mainWindow::paintEvent2(QPaintEvent *event)
+void MainWindow::paintEvent2(QPaintEvent *event)
 {
     Q_UNUSED(event);
 
@@ -72,7 +72,7 @@ void mainWindow::paintEvent2(QPaintEvent *event)
       }
 }
 
-void mainWindow::resizeEvent2(QResizeEvent *event)
+void MainWindow::resizeEvent2(QResizeEvent *event)
 {
   Q_UNUSED(event);
 

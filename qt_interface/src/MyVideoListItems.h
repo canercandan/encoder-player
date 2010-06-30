@@ -6,7 +6,7 @@
 #include <QListWidgetItem>
 #include <QMouseEvent>
 
-class   myVideoListItems : public QWidget
+class   MyVideoListItems : public QWidget
 {
 Q_OBJECT
 private:
@@ -15,7 +15,7 @@ private:
     std::string         _name;
     std::string         _path;
 public:
-    myVideoListItems(QWidget *parent = 0);
+    MyVideoListItems(QWidget *parent = 0);
     void                setText(std::string);
     QListWidgetItem     *getItem();
     void                mousePressEvent(QMouseEvent *event);

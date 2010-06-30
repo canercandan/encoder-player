@@ -1,10 +1,10 @@
-#include "decompress.h"
+#include "video_codec/Decompress.h"
 
 int main ()
 {
-  decompress test;
+    Decompress test;
 
-  test.loadImage();
+    test.loadImage();
 
-  return 0;
+    return 0;
 }

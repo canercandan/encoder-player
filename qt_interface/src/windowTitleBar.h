@@ -4,13 +4,13 @@
 #include <QtGui/QWidget>
 #include <QPixmap>
 
-class windowTitleBar : public QWidget
+class WindowTitleBar : public QWidget
 {
 Q_OBJECT
 
 public:
-  windowTitleBar(QWidget *parent = 0);
-  ~windowTitleBar();
+  WindowTitleBar(QWidget *parent = 0);
+  ~WindowTitleBar();
 private:
   QPixmap *m_Cache;
 protected:

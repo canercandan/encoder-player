@@ -10,7 +10,7 @@
 
 #define PATH    "video.list"
 
-class   myVideoList : public QWidget
+class   MyVideoList : public QWidget
 {
 Q_OBJECT
 private:
@@ -18,8 +18,8 @@ private:
     QVBoxLayout *_layout;
 
 public:
-    myVideoList(QWidget *parent = 0);
-    ~myVideoList();
+    MyVideoList(QWidget *parent = 0);
+    ~MyVideoList();
     void    fillInTheList();
     void    w_clicked();
 public slots:

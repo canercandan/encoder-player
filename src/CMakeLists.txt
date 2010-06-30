@@ -14,5 +14,6 @@ SET(SAMPLE_SRCS ${SOURCES} PARENT_SCOPE)
 
 ADD_SUBDIRECTORY(huffman)
 ADD_SUBDIRECTORY(video_codec)
+ADD_SUBDIRECTORY(qopencv)
 
 ######################################################################################

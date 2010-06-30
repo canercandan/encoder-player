@@ -1,4 +1,4 @@
-#include "playButton.hpp"
+#include "PlayButton.hpp"
 #include <iostream>
 #include <QWidget>
 #include <QPushButton>
@@ -9,7 +9,7 @@
 #include <QApplication>
 #include <QDebug>
 
-qtInterface::playButton::playButton(QWidget *parent)
+qtInterface::PlayButton::PlayButton(QWidget *parent)
 {
     std::cout << "building the play button...";
     this->_layout = new QVBoxLayout;
@@ -21,7 +21,7 @@ qtInterface::playButton::playButton(QWidget *parent)
     connect(this->_button, SIGNAL(clicked()), this,  SLOT(playSlot()));
 }
 
-void    qtInterface::playButton::playSlot()
+void    qtInterface::PlayButton::playSlot()
 {
      qDebug() << "the clicked signal has been received for the play button";
 }

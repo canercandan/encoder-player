@@ -1,5 +1,5 @@
-#include "myVideoList.hpp"
-#include "myVideoListItems.hpp"
+#include "MyVideoList.hpp"
+#include "MyVideoListItems.hpp"
 #include <QPushButton>
 #include <QApplication>
 #include <QVBoxLayout>
@@ -14,7 +14,7 @@
 #include <QString>
 #include <QDebug>
 
-myVideoList::myVideoList(QWidget *parent) : QWidget(parent)
+MyVideoList::MyVideoList(QWidget *parent) : QWidget(parent)
 {
     qDebug() << "building the videoList...";
     this->_layout = new QVBoxLayout;
@@ -26,7 +26,7 @@ myVideoList::myVideoList(QWidget *parent) : QWidget(parent)
     qDebug() << "done.";
 }
 
-myVideoList::~myVideoList()
+MyVideoList::~MyVideoList()
 {
     qDebug() << "deleting the videoList...";
     delete (this->_layout);
@@ -34,7 +34,7 @@ myVideoList::~myVideoList()
     qDebug() << "done.";
 }
 
-void    myVideoList::fillInTheList()
+void    MyVideoList::fillInTheList()
 {
     qDebug() << "putting informations in the videoList...";
     std::fstream    filestr;
@@ -50,7 +50,7 @@ void    myVideoList::fillInTheList()
         {
             found = 0;
             found2 = 0;
-            myVideoListItems widgetItem;
+            MyVideoListItems widgetItem;
             std::string str2 = fileLine.c_str();
             found2 = str2.find(";", found);
             std::string str = str2.substr((int)found, (int)found2 - (int)found);
@@ -78,7 +78,7 @@ void    myVideoList::fillInTheList()
     qDebug() << "done.";
 }
 
-void    myVideoList::w_clicked()
+void    MyVideoList::w_clicked()
 {
     QList<QListWidgetItem *>    items;
     QListWidgetItem             selected;
@@ -88,7 +88,7 @@ void    myVideoList::w_clicked()
         this->_list->addItem(items.first()->text());
 }
 
-std::string    myVideoList::getSelectedPath()
+std::string    MyVideoList::getSelectedPath()
 {
     QList<QListWidgetItem *>    items;
     QListWidgetItem             selected;

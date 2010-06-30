@@ -1,18 +1,18 @@
-#include "windowTitleBar.h"
+#include "WindowTitleBar.h"
 #include <QPixmap>
 #include <QPainter>
 
-windowTitleBar::windowTitleBar(QWidget *parent) : QWidget(parent)
+WindowTitleBar::WindowTitleBar(QWidget *parent) : QWidget(parent)
 {
     setFixedHeight(33);
 }
 
-windowTitleBar::~windowTitleBar()
+WindowTitleBar::~WindowTitleBar()
 {
 
 }
 
-void windowTitleBar::resizeEvent(QResizeEvent *event)
+void WindowTitleBar::resizeEvent(QResizeEvent *event)
 {
   Q_UNUSED(event);
 
@@ -63,7 +63,7 @@ void windowTitleBar::resizeEvent(QResizeEvent *event)
   /**********************************************/
 }
 
-void windowTitleBar::paintEvent(QPaintEvent *event)
+void WindowTitleBar::paintEvent(QPaintEvent *event)
 {
   Q_UNUSED(event);
 

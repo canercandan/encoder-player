@@ -4,17 +4,17 @@
 #include <QPaintEvent>
 #include <QWidget>
 #include <QPixmap>
-#include "myVideoList.hpp"
+#include "MyVideoList.hpp"
 #include "windowTitleBar.h"
 
-class mainWindow : public QWidget
+class MainWindow : public QWidget
 {
 private:
     windowTitleBar  titleBar;
     QPixmap         *m_Cache;
 public:
-    mainWindow(QWidget *parent = 0);
-    ~mainWindow();
+    MainWindow(QWidget *parent = 0);
+    ~MainWindow();
 protected:
     void paintEvent2(QPaintEvent *event);
     void resizeEvent2(QResizeEvent *event);

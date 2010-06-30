@@ -1,10 +1,10 @@
-#include "pauseButton.h"
+#include "PauseButton.h"
 #include <iostream>
 #include <QWidget>
 #include <QPushButton>
 #include <QDebug>
 
-qtInterface::pauseButton::pauseButton(QWidget *parent)
+qtInterface::PauseButton::PauseButton(QWidget *parent)
 {
     qDebug() << "building the pause button...";
     this->_layout = new QVBoxLayout;
@@ -16,7 +16,7 @@ qtInterface::pauseButton::pauseButton(QWidget *parent)
     qDebug() << "done.";
 }
 
-void    qtInterface::pauseButton::pauseSlot()
+void    qtInterface::PauseButton::pauseSlot()
 {
     qDebug() << "the clicked signal has been received for the pause button";
 }

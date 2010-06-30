@@ -5,10 +5,10 @@
 
 namespace qtInterface
 {
-    class   myPlayer : public QWidget
+    class   MyPlayer : public QWidget
     {
     public :
-            myPlayer(QWidget *parent = 0);
+            MyPlayer(QWidget *parent = 0);
     };
 }
 

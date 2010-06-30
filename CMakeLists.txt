@@ -16,7 +16,17 @@ SET(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT
 
 
 ######################################################################################
-### 2) Include useful features
+### 2) Prepare some useful variables
+######################################################################################
+
+SET(EPITIVO_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+SET(EPITIVO_BIN_DIR "${CMAKE_CURRENT_BINARY_DIR}")
+
+######################################################################################
+
+
+######################################################################################
+### 3) Include useful features
 ######################################################################################
 
 INCLUDE(FindDoxygen)
@@ -44,7 +54,7 @@ ENDIF()
 
 
 ######################################################################################
-### 3) Include header files and library path
+### 4) Include header files and library path
 ######################################################################################
 
 INCLUDE_DIRECTORIES(
@@ -62,7 +72,7 @@ LINK_DIRECTORIES(
 
 
 ######################################################################################
-### 4) Set compiler definitions
+### 5) Set compiler definitions
 ######################################################################################
 
 IF (UNIX)
@@ -76,7 +86,7 @@ ENDIF()
 
 
 ######################################################################################
-### 5) Prepare some variables for CMAKE usage
+### 6) Prepare some variables for CMAKE usage
 ######################################################################################
 
 SET(SAMPLE_SRCS)
@@ -89,7 +99,7 @@ SET(SAMPLE_TRANS)
 
 
 ######################################################################################
-### 6) Now where we go ?
+### 7) Now where we go ?
 ######################################################################################
 
 #ADD_SUBDIRECTORY(resources)
@@ -103,7 +113,7 @@ ADD_SUBDIRECTORY(doc)
 
 
 ######################################################################################
-### 7) Some routines for Qt resources
+### 8) Some routines for Qt resources
 ######################################################################################
 
 # Here is an explaination to how to use qt4_wrap_cpp:
@@ -121,7 +131,7 @@ ADD_SUBDIRECTORY(doc)
 
 
 ######################################################################################
-### 8) Create executable, link libraries and prepare target
+### 9) Create executable, link libraries and prepare target
 ######################################################################################
 
 ADD_EXECUTABLE(
@@ -133,10 +143,13 @@ ADD_EXECUTABLE(
   ${SAMPLE_TRANS_SRCS}
   )
 
+SET(EPITIVO_LIBS video_codec huffman qopencv)
+
 TARGET_LINK_LIBRARIES(
   ${PROJECT_NAME}
   ${X_OPENCV_LIBRARIES}
   ${QT_LIBRARIES}
+  ${EPITIVO_LIBS}
   )
 
 INSTALL(
@@ -150,7 +163,7 @@ INSTALL(
 
 
 ######################################################################################
-### 9) Include packaging
+### 10) Include packaging
 ######################################################################################
 
 INCLUDE(Packaging.cmake)

@@ -8,10 +8,11 @@
 #include "QOpenCVWidget.h"
 #include "MyCameraWindow.h"
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     CvCapture * camera = cvCreateCameraCapture(-1);
     assert(camera);
-    IplImage * image=cvQueryFrame(camera);
+    IplImage * image = cvQueryFrame(camera);
     assert(image);
 
     printf("Image depth=%i\n", image->depth);
@@ -20,10 +21,10 @@ int main(int argc, char **argv) {
     QApplication app(argc, argv);
     MyCameraWindow *mainWin = new MyCameraWindow(camera);
     mainWin->setWindowTitle("OpenCV --> QtImage");
-    mainWin->show();    
+    mainWin->show();
     int retval = app.exec();
-    
+
     cvReleaseCapture(&camera);
-    
+
     return retval;
 }

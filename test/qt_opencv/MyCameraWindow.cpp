@@ -1,6 +1,7 @@
 #include "MyCameraWindow.h"
 
-MyCameraWindow::MyCameraWindow(CvCapture* cam, QWidget* parent) : QWidget(parent)
+MyCameraWindow::MyCameraWindow(CvCapture* cam, QWidget* parent)
+  : QWidget(parent)
 {
     camera = cam;
     QVBoxLayout* layout = new QVBoxLayout;
@@ -10,7 +11,7 @@ MyCameraWindow::MyCameraWindow(CvCapture* cam, QWidget* parent) : QWidget(parent
     // resize(500, 400);
     resize(160, 120);
     startTimer(100);  // 0.1-second timer
- }
+}
 
 void MyCameraWindow::timerEvent(QTimerEvent*)
 {

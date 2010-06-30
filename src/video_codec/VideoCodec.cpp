@@ -85,11 +85,14 @@ void		VideoCodec::SaveFlux() //enregistrement de la liste remplie des datas imag
 
 void		VideoCodec::compression(int width, int height)
 {
+    (void)width;
+    (void)height;
+
     std::cout << "Starting compressing image" << std::endl;
     unsigned char *dest,*sour;
     int usize,csize;
     Huffman huf;
-    fpos_t position;
+    //fpos_t position; // not used
 
     FILE *source_file = fopen(this->FileName.c_str(), "r");
     FILE *dest_file = fopen("image_compress", "w");
@@ -111,7 +114,8 @@ void	VideoCodec::decompression()
 {
     std::cout << "Starting decompressing image" << std::endl;
     unsigned char *dest,*sour;
-    int usize,csize;
+    //int usize; // not used
+    int csize;
     Huffman huf;
 
     FILE *dest_file = fopen("image_decompress", "w");

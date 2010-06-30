@@ -1,7 +1,6 @@
 #ifndef PAUSEBUTTON_H
 #define PAUSEBUTTON_H
 
-#include "myVideoList.hpp"
 #include <iostream>
 #include <QWidget>
 #include <QPushButton>
@@ -12,14 +11,14 @@
 
 namespace   qtInterface
 {
-    class   pauseButton : public QWidget
+    class   PauseButton : public QWidget
     {
     Q_OBJECT
     private:
         QVBoxLayout *_layout;
         QPushButton *_button;
     public:
-       pauseButton(QWidget *parent = 0);
+       PauseButton(QWidget *parent = 0);
    public slots:
        void pauseSlot();
     };

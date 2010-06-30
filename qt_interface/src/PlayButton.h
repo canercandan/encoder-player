@@ -12,7 +12,7 @@
 
 namespace   qtInterface
 {
-    class   playButton : public QWidget
+    class   PlayButton : public QWidget
     {
     Q_OBJECT
     private:
@@ -20,7 +20,7 @@ namespace   qtInterface
         QPushButton *_button;
         myVideoList *_videoList;
     public:
-        playButton(QWidget *parent = 0);
+        PlayButton(QWidget *parent = 0);
     public slots:
         void playSlot();
     };
