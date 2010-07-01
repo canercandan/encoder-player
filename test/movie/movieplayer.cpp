@@ -98,7 +98,8 @@ void MoviePlayer::goToFrame(int frame)
 
 void MoviePlayer::fitToWindow()
 {
-    movieLabel->setScaledContents(fitCheckBox->isChecked());
+//    movieLabel->setScaledContents(fitCheckBox->isChecked());
+    movieLabel->setScaledContents(true);
 }
 
 void MoviePlayer::updateFrameSlider()
