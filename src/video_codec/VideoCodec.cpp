@@ -175,10 +175,8 @@ std::list<Image>		VideoCodec::lectureFichier()
 	}
 
     std::cout << width << "x" << height << std::endl;
-    imgDec = new int*[width];
-    for(int i=0; i <= width; i++)
-	imgDec[i] = new int[height];
-
+    imgDec = new int[height * width * 3];
+   
     while (c != 'Q')
 	{
 	   if (flag == 1)
