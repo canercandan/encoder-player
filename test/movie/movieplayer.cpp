@@ -65,15 +65,30 @@ void MoviePlayer::myForward()
 
 void MoviePlayer::openFile(const QString &fileName)
 {
+    size_t  pos;
+
+    qDebug() << "We are getting the fileName";
     currentMovieDirectory = QFileInfo(fileName).path();
 
-    movie->stop();
-    movieLabel->setMovie(movie);
-    movie->setFileName(fileName);
-    movie->start();
+    std::string fileExtension = fileName.toStdString();
+    pos = fileExtension.rfind(".");
+    fileExtension = fileExtension.substr(pos + 1).c_str();
+    qDebug() << "The extension found is: " << fileExtension.c_str();
 
-    updateFrameSlider();
-    updateButtons();
+    if (fileExtension.compare("epi") == 0)
+    {
+         qDebug() << "Ok it is a EPITIVO file";
+    }
+    else
+    {
+        movie->stop();
+        movieLabel->setMovie(movie);
+        movie->setFileName(fileName);
+        movie->start();
+
+        updateFrameSlider();
+        updateButtons();
+    }
 }
 
 void MoviePlayer::goToFrame(int frame)

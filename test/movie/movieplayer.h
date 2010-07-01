@@ -2,6 +2,7 @@
 #define MOVIEPLAYER_H
 
 #include <QWidget>
+#include <QDebug>
 
 QT_BEGIN_NAMESPACE
 class QCheckBox;
