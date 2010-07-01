@@ -14,7 +14,7 @@ public:
     int		*getTab();
     void	setWidth(int);
     void	setHeight(int);
-    void	setTab(int **,int,int);
+    void	setTab(int*,int,int);
 
 private:
     int		width;

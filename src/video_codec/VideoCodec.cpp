@@ -58,18 +58,18 @@ void		VideoCodec::SaveFlux() //enregistrement de la liste remplie des datas imag
   	{
 	    for (it = this->ListImage.begin(); it != this->ListImage.end(); it++)
 		{
-		  std::cout << "Enregistrement de la :" << count+1 << std::endl;
-		    int *tab = it->getTab();		   
+		    std::cout << "Enregistrement de la :" << count+1 << std::endl;
+		    int *tab = it->getTab();
 		    width = it->getWidth();
 		    height = it->getHeight();
 		    if (count == 0)
-		      {
-    			 fprintf(file, "%d",width);
-			 fprintf(file, "%c", '/');
-			 fprintf(file, "%d",height);
-			 fprintf(file, "%c", '/');
-			 std::cout << width << "/" << height << std::endl;
-		      }
+			{
+			    fprintf(file, "%d",width);
+			    fprintf(file, "%c", '/');
+			    fprintf(file, "%d",height);
+			    fprintf(file, "%c", '/');
+			    std::cout << width << "/" << height << std::endl;
+			}
 
 		    for(int i = 0; i < height; i++)
 			for(int j=0; j < width; j++)
@@ -78,7 +78,7 @@ void		VideoCodec::SaveFlux() //enregistrement de la liste remplie des datas imag
 				fprintf(file, "%c", '/');
 			    }
 		    fprintf(file, "%c", 'N');
-		   count++;
+		    count++;
 		}
 	    fprintf(file, "%c", 'Q');
 	    fclose(file);
@@ -88,7 +88,7 @@ void		VideoCodec::SaveFlux() //enregistrement de la liste remplie des datas imag
 
 void		VideoCodec::compression()
 {
-  std::cout << "Starting compressing image" << std::endl;
+    std::cout << "Starting compressing image" << std::endl;
     unsigned char *dest,*sour;
     int usize,csize;
     Huffman huf;
@@ -150,7 +150,7 @@ std::list<Image>		VideoCodec::lectureFichier()
 
     FILE			*f = fopen("image_decompress", "r");
 
-     while (flag != 3)
+    while (flag != 3)
 	{
 	    if (flag == 1)
 		str = "";
@@ -179,7 +179,7 @@ std::list<Image>		VideoCodec::lectureFichier()
    
     while (c != 'Q')
 	{
-	   if (flag == 1)
+	    if (flag == 1)
 		str = "";
 	    fscanf(f,"%c",&c);
 	    if (c != '/' && c != 'N')
@@ -189,22 +189,22 @@ std::list<Image>		VideoCodec::lectureFichier()
 		}
 	    else if (c == 'N')
 		{
-			i = j = 0;
-			this->SaveImgInList(imgDec,width,height);
+		    i = j = 0;
+		    this->SaveImgInList(imgDec,width,height);
 		}
 	    else
-	      {
+		{
 		    flag=1;
 		    if (j == (height-1))
 			{
 			    j = 0;
 			    i++;
 			}
-		   imgDec[i*width+j] = atoi(str.c_str());
-		   
+		    imgDec[i*width+j] = atoi(str.c_str());
+
 		    j++;
 		}
 	}
-	fclose(f);
+    fclose(f);
     return (this->ListImage);
 }
