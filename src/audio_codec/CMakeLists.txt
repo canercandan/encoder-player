@@ -5,6 +5,6 @@
 SET(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
 
 FILE(GLOB SOURCES *.cpp)
-ADD_LIBRARY(huffman ${SOURCES})
+ADD_LIBRARY(audio_codec ${SOURCES})
 
 ######################################################################################

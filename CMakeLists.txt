@@ -143,7 +143,7 @@ ADD_EXECUTABLE(
   ${SAMPLE_TRANS_SRCS}
   )
 
-SET(EPITIVO_LIBS video_codec huffman qopencv)
+SET(EPITIVO_LIBS video_codec audio_codec qopencv)
 
 TARGET_LINK_LIBRARIES(
   ${PROJECT_NAME}
