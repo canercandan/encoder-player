@@ -170,7 +170,7 @@ void	Mcodec::setRecontructionImage(int height,int width)
   this->ImgRec = new int[height*width*3];
 }
 
-int		**Mcodec::getRecontructionImage()
+int		*Mcodec::getRecontructionImage()
 {
     return (this->ImgRec);
 }

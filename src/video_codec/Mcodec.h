@@ -33,7 +33,7 @@ public:
 	void	uncompressImage();
 	void	saveImage(short int*,int,int,IplImage*);
 	void	setRecontructionImage(int,int);
-	int		**getRecontructionImage();
+	int		*getRecontructionImage();
 	bool	CalcBlocSize(int,int,int,int);
 	/**
 	*@param IplImage the image to be displayed
