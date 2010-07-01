@@ -12,7 +12,7 @@ SET(SAMPLE_SRCS ${SOURCES} PARENT_SCOPE)
 ### 2) Now where we go ?!?
 ######################################################################################
 
-ADD_SUBDIRECTORY(huffman)
+ADD_SUBDIRECTORY(audio_codec)
 ADD_SUBDIRECTORY(video_codec)
 ADD_SUBDIRECTORY(qopencv)
 
