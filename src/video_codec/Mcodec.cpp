@@ -167,9 +167,7 @@ void				Mcodec::compressImage(IplImage *image)
 void	Mcodec::setRecontructionImage(int height,int width)
 {
     //imRec[width][height]
-    this->ImgRec = new int*[width];
-    for(int i=0; i < width; i++)
-	this->ImgRec[i] = new int[height];
+  this->ImgRec = new int[height*width*3];
 }
 
 int		**Mcodec::getRecontructionImage()
