@@ -11,7 +11,7 @@ public:
 
     int		getWidth();
     int		getHeight();
-    int		**getTab();
+    int		*getTab();
     void	setWidth(int);
     void	setHeight(int);
     void	setTab(int **,int,int);
@@ -19,7 +19,7 @@ public:
 private:
     int		width;
     int		height;
-    int		**tab;
+    int		*tab;
 };
 
 #endif // !IMAGE_H

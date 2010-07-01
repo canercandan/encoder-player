@@ -177,7 +177,7 @@ int		**Mcodec::getRecontructionImage()
     return (this->ImgRec);
 }
 
-void	Mcodec::saveImage(short int *tab,int x, int y, IplImage *bloc)
+/*void	Mcodec::saveImage(short int *tab,int x, int y, IplImage *bloc)
 {
     int blocH = bloc->height;
     int blocW = bloc->width;
@@ -199,4 +199,4 @@ void	Mcodec::saveImage(short int *tab,int x, int y, IplImage *bloc)
 	    j++;
 	    count++;
 	}
-}
+	}*/

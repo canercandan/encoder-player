@@ -14,7 +14,7 @@
 VideoCodec::VideoCodec()
 {}
 
-void	VideoCodec::SaveImgInList(int **tab, int width, int height)
+void	VideoCodec::SaveImgInList(int *tab, int width, int height)
 {
     Image 	img;
     img.setHeight(height);
@@ -59,7 +59,7 @@ void		VideoCodec::SaveFlux() //enregistrement de la liste remplie des datas imag
 	    for (it = this->ListImage.begin(); it != this->ListImage.end(); it++)
 		{
 		  std::cout << "Enregistrement de la :" << count+1 << std::endl;
-		    int **tab = it->getTab();		   
+		    int *tab = it->getTab();		   
 		    width = it->getWidth();
 		    height = it->getHeight();
 		    if (count == 0)
@@ -71,10 +71,10 @@ void		VideoCodec::SaveFlux() //enregistrement de la liste remplie des datas imag
 			 std::cout << width << "/" << height << std::endl;
 		      }
 
-		    for(int i = 0; i < width; i++)
-			for(int j=0; j < height; j++)
+		    for(int i = 0; i < height; i++)
+			for(int j=0; j < width; j++)
 			    {
-				fprintf(file, "%d",tab[i][j]);
+				fprintf(file, "%d",tab[i * width +j]);
 				fprintf(file, "%c", '/');
 			    }
 		    fprintf(file, "%c", 'N');
@@ -141,7 +141,7 @@ std::list<Image>		VideoCodec::lectureFichier()
 {
     std::cout << "Starting reading file" << std::endl;
     int				height,width,i,j,flag;
-    int				**imgDec;
+    int				*imgDec;
     std::string		str;
     char			c = 'a';
     char			a = 'a';
@@ -202,7 +202,7 @@ std::list<Image>		VideoCodec::lectureFichier()
 			    j = 0;
 			    i++;
 			}
-		   imgDec[i][j] = atoi(str.c_str());
+		   imgDec[i*width+j] = atoi(str.c_str());
 		   
 		    j++;
 		}

@@ -13,7 +13,7 @@ class							VideoCodec
 public:
 								VideoCodec();
 
-    void						SaveImgInList(int **, int,int);
+    void						SaveImgInList(int *, int,int);
     void						createFile(std::string);
     void						compression();
     void						decompression();

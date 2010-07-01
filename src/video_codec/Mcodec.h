@@ -44,7 +44,7 @@ private:
 /**			ATTRIBUTES			**/
 	int		BlocW;
 	int		BlocH;
-	int		**ImgRec; /*ImgRec[width][height]*/
+	int		*ImgRec; /*ImgRec[width][height]*/
 /**			METHODS				**/
 	/**
 	*@param int ** a 2-dimension array
