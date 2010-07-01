@@ -33,6 +33,7 @@ SET (TEST_LIST
   t-opencv
   t-audio_codec1
   t-webcam
+  t-aquisition_son
 #  t-video_codec1
   )
 
@@ -51,5 +52,6 @@ ENDFOREACH (test)
 
 ADD_SUBDIRECTORY(qt_interface)
 ADD_SUBDIRECTORY(qt_opencv)
+ADD_SUBDIRECTORY(movie)
 
 ######################################################################################

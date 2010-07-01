@@ -10,6 +10,7 @@
 
 #include <QAudioDeviceInfo>
 #include <QAudioInput>
+
 #include "aquisition_son.h"
 
 #define BUFFER_SIZE 4096

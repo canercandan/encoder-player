@@ -32,7 +32,7 @@ SET(EPITIVO_BIN_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 INCLUDE(FindDoxygen)
 
 # see http://cmake.org/cmake/help/cmake2.6docs.html#module:FindQt4 for a complete list
-FIND_PACKAGE(Qt4 COMPONENTS QtCore QtGui QtNetwork QtXml REQUIRED)
+FIND_PACKAGE(Qt4 COMPONENTS QtCore QtGui QtNetwork QtXml QtMultimedia REQUIRED)
 INCLUDE(${QT_USE_FILE})
 
 IF (UNIX)
