@@ -22,7 +22,7 @@ public:
 	/**
 	*@param string the path of the image to be compress using our algorithm
 	**/
-	void	compressImage(std::string);
+    Image compressImage(std::string);
 	/**
 	*@param IplImage the image to be reconstructed
 	**/

@@ -85,7 +85,7 @@ void								Mcodec::uncompressImage()
 	int							height;
 	int							width;
 	IplImage						*image;
-	std::list<Image>					infos
+	std::list<Image>					infos;
 
 	
 
