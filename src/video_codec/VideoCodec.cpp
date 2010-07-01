@@ -49,46 +49,46 @@ void		VideoCodec::SaveFlux() //enregistrement de la liste remplie des datas imag
     FILE *file = fopen(this->FileName.c_str(), "w");
     std::list<Image>::iterator	it;
     int width=0,height=0;
+    int count = 0;
 
     it = this->ListImage.begin();
     if (file == NULL)
     	std::cout << "Impossible d'ouvrir le fichier en lecture !" << std::endl;
     else
   	{
-	    for (it = this->ListImage.begin(); it != this->ListImage.end(); it++) //parcours de chaq image stocker dans la list
+	    for (it = this->ListImage.begin(); it != this->ListImage.end(); it++)
 		{
-		    int **tab = it->getTab();
+		  std::cout << "Enregistrement de la :" << count+1 << std::endl;
+		    int **tab = it->getTab();		   
 		    width = it->getWidth();
-		    height = it->getHeight();//data de l'image restocker dans un tableau a deux dimension
+		    height = it->getHeight();
+		    if (count == 0)
+		      {
+    			 fprintf(file, "%d",width);
+			 fprintf(file, "%c", '/');
+			 fprintf(file, "%d",height);
+			 fprintf(file, "%c", '/');
+			 std::cout << width << "/" << height << std::endl;
+		      }
 
-		    fprintf(file, "%d",width);
-		    fprintf(file, "%c", '/');
-		    fprintf(file, "%d",height);
-		    fprintf(file, "%c", '/');
-		    std::cout << width << "/" << height << std::endl;
 		    for(int i = 0; i < width; i++)
 			for(int j=0; j < height; j++)
 			    {
 				fprintf(file, "%d",tab[i][j]);
 				fprintf(file, "%c", '/');
 			    }
-		    fprintf(file, "%c", 'O');
-		    fclose(file);
-		    this->compression(width,height);
-		    /*::sleep(1000);*/
-		    /*this->decompression();
-		    int **Endtab = this->lectureFichier();
-		    (void)Endtab;*/
+		    fprintf(file, "%c", 'N');
+		   count++;
 		}
+	    fprintf(file, "%c", 'Q');
+	    fclose(file);
+	    //this->compression(width,height);
 	}
 }
 
-void		VideoCodec::compression(int width, int height)
+void		VideoCodec::compression()
 {
-    (void)width;
-    (void)height;
-
-    std::cout << "Starting compressing image" << std::endl;
+  std::cout << "Starting compressing image" << std::endl;
     unsigned char *dest,*sour;
     int usize,csize;
     Huffman huf;
@@ -106,7 +106,7 @@ void		VideoCodec::compression(int width, int height)
 
     fclose(source_file);
     fclose(dest_file);
-    remove(this->FileName.c_str());
+    //    remove(this->FileName.c_str());
     std::cout << "Deleting source file" << std::endl;
 }
 
@@ -137,7 +137,7 @@ void	VideoCodec::decompression()
     std::cout << "decompressing finish" << std::endl;
 }
 
-Image		VideoCodec::lectureFichier()
+std::list<Image>		VideoCodec::lectureFichier()
 {
     std::cout << "Starting reading file" << std::endl;
     int				height,width,i,j,flag;
@@ -149,7 +149,8 @@ Image		VideoCodec::lectureFichier()
     i = j = flag=0;
 
     FILE			*f = fopen("image_decompress", "r");
-    while (flag != 3)
+
+     while (flag != 3)
 	{
 	    if (flag == 1)
 		str = "";
@@ -162,9 +163,6 @@ Image		VideoCodec::lectureFichier()
 	    else
 		{
 		    flag=1;
-		    fscanf(f,"%a", &a);
-		    if ( a == 'O')
-			flag = 3;
 		    count++;
 		    if (count == 1)
 			width = atoi(str.c_str());
@@ -181,34 +179,34 @@ Image		VideoCodec::lectureFichier()
     for(int i=0; i <= width; i++)
 	imgDec[i] = new int[height];
 
-    while ( i != width && j != height)
+    while (c != 'Q')
 	{
-	    if (flag == 1)
+	   if (flag == 1)
 		str = "";
 	    fscanf(f,"%c",&c);
-	    if (c != '/')
+	    if (c != '/' && c != 'N')
 		{
 		    flag = 0;
 		    str += c;
 		}
-	    else
+	    else if (c == 'N')
 		{
+			i = j = 0;
+			this->SaveImgInList(imgDec,width,height);
+		}
+	    else
+	      {
 		    flag=1;
 		    if (j == (height-1))
 			{
 			    j = 0;
 			    i++;
 			}
-		    if ( i >= width && j >= height)
-			break;
-		    imgDec[i][j] = atoi(str.c_str());
+		   imgDec[i][j] = atoi(str.c_str());
+		   
 		    j++;
 		}
 	}
 	fclose(f);
-	Image						ObjImage;
-	ObjImage.setHeight(height);
-	ObjImage.setWidth(width);
-	ObjImage.setTab(imgDec,width,height);
-    return (ObjImage);
+    return (this->ListImage);
 }

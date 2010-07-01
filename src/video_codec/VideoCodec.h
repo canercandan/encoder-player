@@ -15,16 +15,16 @@ public:
 
     void						SaveImgInList(int **, int,int);
     void						createFile(std::string);
-    void						compression(int,int);
+    void						compression();
     void						decompression();
 	/**
 	*@return Image an object from Image class containing two int (height and width) and int **
 	**/
-    Image						lectureFichier();
+    std::list<Image>					lectureFichier();
     void						SaveFlux(); /* creation fichier type*/
 
 private:
-    std::list<Image>			ListImage;
+    std::list<Image>				ListImage;
     std::string					FileName;
 };
 
