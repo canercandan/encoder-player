@@ -1,6 +1,6 @@
 #include <QtGui>
 
-#include "movieplayer.h"
+#include "MoviePlayer.h"
 
 MoviePlayer::MoviePlayer(QWidget *parent)
     : QWidget(parent)

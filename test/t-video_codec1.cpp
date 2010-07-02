@@ -18,33 +18,33 @@ int **oneD_twoD(short int * src, int height, int width)
 
 short int		*twoD_oneD(int **src, int height, int width)
 {
-	short int	*res;
+    short int	*res;
 
-	res = new short int[height * width];
-	for (int i = 0; i < height; i++)
-		for (int j = 0; j < width; j++)
-			res[i * width + j] = (short int) src[i][j];
-	return (res);
+    res = new short int[height * width];
+    for (int i = 0; i < height; i++)
+	for (int j = 0; j < width; j++)
+	    res[i * width + j] = (short int) src[i][j];
+    return (res);
 }
 
-int				main ()
+int				main (int ac, char** av)
 {
-	Mcodec		test;
-	char		c;
+    Mcodec		test;
+    char		c;
 
-	std::cout << "**\tChoisir le mode : **" << std::endl;
-	std::cout << "\t1. compress" << std::endl;
-	std::cout << "\t2. uncompress" << std::endl;
-	std::cin >> c;
-	if (c == '1')
+    std::cout << "**\tChoisir le mode : **" << std::endl;
+    std::cout << "\t1. compress" << std::endl;
+    std::cout << "\t2. uncompress" << std::endl;
+    std::cin >> c;
+    if (c == '1')
 	{
-		test.compressImage("/media/local/Images/ipod/100APPLE/IMG_0008.JPG");
-		test.compressImage("/media/local/Images/ipod/100APPLE/IMG_0008.JPG");
-		test.compressImage("/media/local/Images/ipod/100APPLE/IMG_0008.JPG");
-		test.saveVideo("test.eip");
+	    test.compressImage(av[1]);
+	    test.compressImage(av[1]);
+	    test.compressImage(av[1]);
+	    test.saveVideo("test.eip");
 	}
-	else if (c == '2')
-		test.uncompressImage("test.eip");
-	return 0;
+    else if (c == '2')
+	test.uncompressImage("test.eip");
+    return 0;
     return (0);
 }
