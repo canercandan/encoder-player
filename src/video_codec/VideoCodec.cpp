@@ -190,7 +190,8 @@ std::list<Image>		VideoCodec::lectureFichier()
 	    else
 		{
 		    imgDec[i] = atoi(str.c_str());
-			i++;
+		    flag = 1;
+		    i++;
 		}
 	}
     fclose(f);
