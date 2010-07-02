@@ -71,10 +71,9 @@ void		VideoCodec::SaveFlux() //enregistrement de la liste remplie des datas imag
 			    std::cout << width << "/" << height << std::endl;
 			}
 
-		    for(int i = 0; i < height; i++)
-			for(int j=0; j < width; j++)
+		    for(int i = 0; i < height * width * 3; i++)
 			    {
-				fprintf(file, "%d",tab[i * width +j]);
+				fprintf(file, "%d",tab[i]);
 				fprintf(file, "%c", '/');
 			    }
 		    fprintf(file, "%c", 'N');
@@ -176,7 +175,7 @@ std::list<Image>		VideoCodec::lectureFichier()
 
     std::cout << width << "x" << height << std::endl;
     imgDec = new int[height * width * 3];
-
+	i = 0;
     while (c != 'Q')
 	{
 	    if (flag == 1)
@@ -194,15 +193,8 @@ std::list<Image>		VideoCodec::lectureFichier()
 		}
 	    else
 		{
-		    flag=1;
-		    if (j == (height-1))
-			{
-			    j = 0;
-			    i++;
-			}
-		    imgDec[i*width+j] = atoi(str.c_str());
-
-		    j++;
+		    imgDec[i] = atoi(str.c_str());
+			i++;
 		}
 	}
     fclose(f);

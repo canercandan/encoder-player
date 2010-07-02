@@ -29,66 +29,73 @@ void				Mcodec::dislay_picture(IplImage *image)
     cvDestroyWindow("mwindow");
 }
 
-Image				Mcodec::compressImage(std::string image_path)
+void				Mcodec::compressImage(std::string image_path)
 {
     IplImage		*image;
-    IplImage		*bloc;
     VideoCodec		VC;
     DCT				dct;
     Quantizer		Q;
-    short int		temp[64];
     int				height,width;
     int				x,y;
+	CvScalar		*temp;
+	int				*img;
 
-    image = bloc = cvLoadImage(image_path.c_str());
+    image = cvLoadImage(image_path.c_str());
     height = image->height;
     width = image->width;
-    this->setRecontructionImage(height,width);
-    for (x = 0; x <= width; x+=8)
-	{
-	    for(y=0; y <= height; y+=8)
+	temp = new CvScalar[height * width];
+    for (x = 0; x < height; x++)
+	    for(y=0; y < width; y++)
+			temp[y * width + x] = cvGet2D(image, y, x);
+	img = new int[height * width * 3];
+	for (int i = 0, ; i < height; i++)
+		for (int j = 0, index = 0; j < width; j++, index += 3)
 		{
-		    if (this->CalcBlocSize(width,height,y,x) == true)
-			{
-			    CvRect rect = cvRect(x, y, this->BlocW,this->BlocH);
-			    cvSetImageROI(image, rect);
-			    bloc = cvCreateImage(cvGetSize(image),
-						 image->depth,
-						 image->nChannels);
-			    cvCopy(image, bloc, NULL);
-			    cvResetImageROI(image);
-			    dct.referenceDCT((uchar *)bloc->imageData,temp);
-			    Q.quantizeDCTMatrix(temp);
-			    this->saveImage(temp,x,y,bloc);
-			}
+			img[i * width + index] = (int)temp[i * width + j].val[0];
+			img[i * width + index + 1] = (int)temp[i * width + j].val[1];
+			img[i * width + index + 2] = (int)temp[i * width + j].val[2];
 		}
-	}
-    	Image						ObjImage;
-	ObjImage.setHeight(height);
-	ObjImage.setWidth(width);
-	ObjImage.setTab(this->ImgRec,width,height);
-	delete(this->ImgRec);
-	return(ObjImage);
-
-    
-       
+	VC.SaveImgInList(img, height, width);
 }
 
-void								Mcodec::uncompressImage()
+void							Mcodec::uncompressImage()
 {
-	VideoCodec						vc;
+	VideoCodec					vc;
 	//	Image							infos; //Modification du type de infos (objet image)
-	short int						*values;
-	unsigned char						*datas;
+	short int					*values;
+	unsigned char				*datas;
 	DCT							dct;
-	Quantizer						qt;
+	Quantizer					qt;
 	int							height;
 	int							width;
-	IplImage						*image;
-	std::list<Image>					infos;
+	IplImage					*image;
+	std::list<Image>			infos;
+	std::list<Image>::iterator	it;
+	CvScalar					*temp;
 
-	
-
+	vc.decompression();
+	infos = vc.lectureFichier();
+	it = infos.begin();
+	for (it = infos.begin(); it != infos.end(); it++)
+	{
+		int *tab = it->getTab();
+		width = it->getWidth();
+		height = it->getHeight();
+		temp = new CvScalar[height * width];
+		image = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, 3);
+		for (int i = 0; i < height; i++)
+			for (int j = 0, index = 0; j < width; j++, index += 3)
+			{
+				temp[i * width + j].val[0] = tab[i * width + index];
+				temp[i * width + j].val[1] = tab[i * width + index + 1];
+				temp[i * width + j].val[2] = tab[i * width + index + 2];
+			}
+		for (int x = 0; x < height; x++)
+			for(int y = 0; y < width; y++)
+				cvSet2D(image, x, y, temp[x * width + y]);
+		this->dislay_picture(image);
+		delete [] temp;
+	}
 	  /*	std::cout << "video codec decompression ()" << std::endl;
 	vc.decompression();
 	std::cout << "lecture du fichier" << std::endl;
@@ -111,6 +118,7 @@ void								Mcodec::uncompressImage()
 	this->dislay_picture(image);
 	std::cout << "reverse dct and quantization complete." << std::endl;
 	delete (values);*/
+	
 }
 
 short int					*Mcodec::twoDimensionToOneDimension(int **tab_src, int height, int width)

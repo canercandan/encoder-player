@@ -34,7 +34,7 @@ SET (TEST_LIST
   t-audio_codec1
   t-webcam
   t-aquisition_son
-#  t-video_codec1
+  t-video_codec1
   )
 
 FOREACH (test ${TEST_LIST})
