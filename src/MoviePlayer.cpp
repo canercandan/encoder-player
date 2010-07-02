@@ -13,6 +13,7 @@ MoviePlayer::MoviePlayer(QWidget *parent)
     movieLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
     movieLabel->setBackgroundRole(QPalette::Dark);
     movieLabel->setAutoFillBackground(true);
+    movieLabel->setScaledContents(true);
 
     currentMovieDirectory = "movies";
 
@@ -20,12 +21,9 @@ MoviePlayer::MoviePlayer(QWidget *parent)
     createButtons();
 
     connect(movie, SIGNAL(frameChanged(int)), this, SLOT(updateFrameSlider()));
-    connect(movie, SIGNAL(stateChanged(QMovie::MovieState)),
-            this, SLOT(updateButtons()));
-    connect(fitCheckBox, SIGNAL(clicked()), this, SLOT(fitToWindow()));
+    connect(movie, SIGNAL(stateChanged(QMovie::MovieState)), this, SLOT(updateButtons()));
     connect(frameSlider, SIGNAL(valueChanged(int)), this, SLOT(goToFrame(int)));
-    connect(speedSpinBox, SIGNAL(valueChanged(int)),
-            movie, SLOT(setSpeed(int)));
+    connect(speedSpinBox, SIGNAL(valueChanged(int)), movie, SLOT(setSpeed(int)));
 
     mainLayout = new QVBoxLayout;
     mainLayout->addWidget(movieLabel);
@@ -50,24 +48,19 @@ void MoviePlayer::open()
 
 void MoviePlayer::myBackward()
 {
-    exit(21);
 }
 
 void MoviePlayer::myStart()
 {
-    exit(22);
 }
 
 void MoviePlayer::myForward()
 {
-    exit(23);
 }
 
 void MoviePlayer::myRec()
 {
-    exit(24);
 }
-
 
 void MoviePlayer::openFile(const QString &fileName)
 {
