@@ -40,7 +40,6 @@ SET(EPITIVO_LIBS video_codec audio_codec qopencv)
 
 FOREACH (test ${TEST_LIST})
   ADD_EXECUTABLE(${test} "${test}.cpp")
-  MESSAGE("REGARDE ICI:" ${X_OPENCV_LIBRARIES})
   TARGET_LINK_LIBRARIES(${test} ${EPITIVO_LIBS} ${X_OPENCV_LIBRARIES} ${QT_LIBRARIES})
   ADD_TEST(${test} ${test})
 ENDFOREACH (test)
