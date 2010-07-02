@@ -48,7 +48,7 @@ void				Mcodec::compressImage(std::string image_path)
 	    for(y=0; y < width; y++)
 			temp[y * width + x] = cvGet2D(image, y, x);
 	img = new int[height * width * 3];
-	for (int i = 0, ; i < height; i++)
+	for (int i = 0 ; i < height; i++)
 		for (int j = 0, index = 0; j < width; j++, index += 3)
 		{
 			img[i * width + index] = (int)temp[i * width + j].val[0];
@@ -183,9 +183,9 @@ int		*Mcodec::getRecontructionImage()
     return (this->ImgRec);
 }
 
-/*void	Mcodec::saveImage(short int *tab,int x, int y, IplImage *bloc)
+void	Mcodec::saveImage(short int *tab,int x, int y, IplImage *bloc)
 {
-    int blocH = bloc->height;
+  /*    int blocH = bloc->height;
     int blocW = bloc->width;
     int blocSize = blocH*blocW;
     int	i = 0;
@@ -204,5 +204,5 @@ int		*Mcodec::getRecontructionImage()
 	    this->ImgRec[x+i][y+j] = (int)tab[count];
 	    j++;
 	    count++;
-	}
-	}*/
+	    }*/
+}
