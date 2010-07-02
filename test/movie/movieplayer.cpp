@@ -63,6 +63,12 @@ void MoviePlayer::myForward()
     exit(23);
 }
 
+void MoviePlayer::myRec()
+{
+    exit(24);
+}
+
+
 void MoviePlayer::openFile(const QString &fileName)
 {
     size_t  pos;
@@ -196,6 +202,12 @@ void MoviePlayer::createButtons()
     stopButton->setToolTip(tr("Stop"));
     connect(stopButton, SIGNAL(clicked()), movie, SLOT(stop()));
 
+    recButton = new QToolButton;
+    recButton->setIcon(style()->standardIcon(QStyle::SP_DesktopIcon));
+    recButton->setIconSize(iconSize);
+    recButton->setToolTip(tr("Record"));
+    connect(recButton, SIGNAL(clicked()), this, SLOT(myRec()));
+
     quitButton = new QToolButton;
     quitButton->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
     quitButton->setIconSize(iconSize);
@@ -210,6 +222,7 @@ void MoviePlayer::createButtons()
     buttonsLayout->addWidget(forwardButton);
     buttonsLayout->addWidget(pauseButton);
     buttonsLayout->addWidget(stopButton);
+    buttonsLayout->addWidget(recButton);
     buttonsLayout->addWidget(quitButton);
     buttonsLayout->addStretch();
 }
