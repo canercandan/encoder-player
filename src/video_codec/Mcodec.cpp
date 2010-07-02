@@ -46,9 +46,9 @@ void				Mcodec::compressImage(std::string image_path)
 	temp = new CvScalar[height * width];
     for (x = 0; x < height; x++)
 	    for(y=0; y < width; y++)
-			temp[y * width + x] = cvGet2D(image, y, x);
+			temp[x * width + y] = cvGet2D(image, x, y);
 	img = new int[height * width * 3];
-	for (int i = 0 ; i < height; i++)
+	for (int i = 0; i < height; i++)
 		for (int j = 0, index = 0; j < width; j++, index += 3)
 		{
 			img[i * width + index] = (int)temp[i * width + j].val[0];
@@ -56,6 +56,9 @@ void				Mcodec::compressImage(std::string image_path)
 			img[i * width + index + 2] = (int)temp[i * width + j].val[2];
 		}
 	VC.SaveImgInList(img, height, width);
+	VC.createFile("test.guigui");
+	VC.SaveFlux();
+	VC.compression();
 }
 
 void							Mcodec::uncompressImage()
@@ -76,6 +79,7 @@ void							Mcodec::uncompressImage()
 	vc.decompression();
 	infos = vc.lectureFichier();
 	it = infos.begin();
+	std::cout << "abc" << std::endl;
 	for (it = infos.begin(); it != infos.end(); it++)
 	{
 		int *tab = it->getTab();

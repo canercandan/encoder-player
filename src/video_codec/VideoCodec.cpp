@@ -121,16 +121,12 @@ void	VideoCodec::decompression()
     FILE *source_file = fopen("image_compress", "r");
     if (source_file == NULL || dest_file == NULL)
 	std::cout << "impossible d'ouvrir le fichier" << std::endl;
-
     csize = get_file_size(source_file);
-
     sour = new unsigned char[csize];
     csize = fread(sour, 1, csize, source_file);
     dest = new unsigned char[huf.get_uncompressed_size(sour)];
-
     huf.decode(dest, csize, sour);
     fwrite(dest, 1, csize, dest_file);
-
     fclose(source_file);
     fclose(dest_file);
     std::cout << "decompressing finish" << std::endl;
@@ -147,8 +143,9 @@ std::list<Image>		VideoCodec::lectureFichier()
     int				count = 0;
     i = j = flag=0;
 
-    FILE			*f = fopen("image_decompress", "r");
 
+    FILE			*f = fopen("image_decompress", "r");
+	std::cout << "here" << std::endl;
     while (flag != 3)
 	{
 	    if (flag == 1)
@@ -188,7 +185,6 @@ std::list<Image>		VideoCodec::lectureFichier()
 		}
 	    else if (c == 'N')
 		{
-		    i = j = 0;
 		    this->SaveImgInList(imgDec,width,height);
 		}
 	    else
