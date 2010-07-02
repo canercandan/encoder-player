@@ -23,7 +23,7 @@ bool	Mcodec::CalcBlocSize(int width, int height, int y, int x)
 
 void				Mcodec::dislay_picture(IplImage *image)
 {
-	cvNamedWindow("mwindow");
+    cvNamedWindow("mwindow");
     cvShowImage("mwindow", image);
     cvWaitKey();
     cvDestroyWindow("mwindow");
@@ -32,7 +32,6 @@ void				Mcodec::dislay_picture(IplImage *image)
 void				Mcodec::compressImage(std::string image_path)
 {
     IplImage		*image;
-    VideoCodec		VC;
     DCT				dct;
     Quantizer		Q;
     int				height,width;
@@ -55,13 +54,11 @@ void				Mcodec::compressImage(std::string image_path)
 			img[i * height + index + 1] = (int)temp[i * height + j].val[1];
 			img[i * height + index + 2] = (int)temp[i * height + j].val[2];
 		}
-	VC.SaveImgInList(img, height, width);
-	VC.createFile("test.guigui");
-	VC.SaveFlux();
-	VC.compression();
+	this->VC.SaveImgInList(img, height, width);
+
 }
 
-void							Mcodec::uncompressImage()
+void							Mcodec::uncompressImage(std::string file)
 {
 	VideoCodec					vc;
 	//	Image							infos; //Modification du type de infos (objet image)
@@ -76,7 +73,7 @@ void							Mcodec::uncompressImage()
 	std::list<Image>::iterator	it;
 	CvScalar					*temp;
 
-	vc.decompression();
+	vc.decompression(file);
 	infos = vc.lectureFichier();
 	it = infos.begin();
 	std::cout << "abc" << std::endl;
@@ -101,29 +98,13 @@ void							Mcodec::uncompressImage()
 		this->dislay_picture(image);
 		delete [] temp;
 	}
-	  /*	std::cout << "video codec decompression ()" << std::endl;
-	vc.decompression();
-	std::cout << "lecture du fichier" << std::endl;
-	infos = vc.lectureFichier();
-	height = infos.getHeight(); //recuperation de la heuteur
-	width = infos.getWidth(); //recuperation de la largeur
-     	if ((height * width) % 8)
-		return ;
-	image = cvCreateImage(cvSize(height, width),IPL_DEPTH_8U,1);
-	std::cout << "conversion tableau begin." << std::endl;
-	values = this->twoDimensionToOneDimension(test, height, width);
-	std::cout << "conversion tableau end." << std::endl;
-	datas = (uchar *) image->imageData;
-	std::cout << "reverse dct and quantization starting." << std::endl;
-	for (int cpt = 0; cpt < height * width; cpt+= 8)
-	{
-		qt.unquantizeDCTMatrix(values + cpt);
-		dct.referenceIDCT(values + cpt, datas +cpt);
-	}
-	this->dislay_picture(image);
-	std::cout << "reverse dct and quantization complete." << std::endl;
-	delete (values);*/
-	
+ }
+
+void						Mcodec::saveVideo(std::string file)
+{
+  	this->VC.createFile(file);
+	this->VC.SaveFlux();
+	this->VC.compression();
 }
 
 short int					*Mcodec::twoDimensionToOneDimension(int **tab_src, int height, int width)
@@ -141,40 +122,28 @@ short int					*Mcodec::twoDimensionToOneDimension(int **tab_src, int height, int
 
 void				Mcodec::compressImage(IplImage *image)
 {
-    IplImage		*bloc;
-    VideoCodec		VC;
     DCT				dct;
-    Quantizer		Q;
-    short int		temp[64];
+    Quantizer			Q;
     int				height,width;
     int				x,y;
+	CvScalar		*temp;
+       int				*img;
 
     height = image->height;
     width = image->width;
-    this->setRecontructionImage(height,width);
-    for (x = 0; x <= width; x+=8)
-	{
-	    for(y=0; y <= height; y+=8)
+	temp = new CvScalar[height * width];
+    for (x = 0; x < height; x++)
+	    for(y=0; y < width; y++)
+			temp[x * width + y] = cvGet2D(image, x, y);
+	img = new int[height * width * 3];
+	for (int i = 0; i < width; i++)
+		for (int j = 0, index = 0; j < height; j++, index += 3)
 		{
-		    if (this->CalcBlocSize(width,height,y,x) == true)
-			{
-			    CvRect rect = cvRect(x, y, this->BlocW,this->BlocH);
-			    cvSetImageROI(image, rect);
-			    bloc = cvCreateImage(cvGetSize(image),
-						 image->depth,
-						 image->nChannels);
-			    cvCopy(image, bloc, NULL);
-			    cvResetImageROI(image);
-			    dct.referenceDCT((uchar *)bloc->imageData,temp);
-			    Q.quantizeDCTMatrix(temp);
-			    this->saveImage(temp,x,y,bloc);
-			}
+			img[i * height + index] = (int)temp[i * height + j].val[0];
+			img[i * height + index + 1] = (int)temp[i * height + j].val[1];
+			img[i * height + index + 2] = (int)temp[i * height + j].val[2];
 		}
-	}
-    VC.SaveImgInList(this->ImgRec,width,height);
-    delete(this->ImgRec);
-    VC.createFile("test.GuiGuy");
-    VC.SaveFlux();
+	this->VC.SaveImgInList(img, height, width);    
 }
 
 void	Mcodec::setRecontructionImage(int height,int width)

@@ -30,7 +30,8 @@ public:
     /**
      *extract the information from a file
      **/
-    void	uncompressImage();
+    void	uncompressImage(std::string);
+    void	saveVideo(std::string);
     void	saveImage(short int*,int,int,IplImage*);
     void	setRecontructionImage(int,int);
     int		*getRecontructionImage();
@@ -43,6 +44,7 @@ public:
 private:
     /**			ATTRIBUTES			**/
     int		BlocW;
+    VideoCodec	VC;
     int		BlocH;
     int		*ImgRec; /*ImgRec[width][height]*/
     /**			METHODS				**/

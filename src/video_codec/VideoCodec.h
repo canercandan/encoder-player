@@ -16,7 +16,7 @@ public:
     void						SaveImgInList(int *, int,int);
     void						createFile(std::string);
     void						compression();
-    void						decompression();
+    void						decompression(std::string);
 	/**
 	*@return Image an object from Image class containing two int (height and width) and int **
 	**/

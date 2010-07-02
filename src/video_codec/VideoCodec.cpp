@@ -46,7 +46,7 @@ int get_file_size(FILE *fp)
 
 void		VideoCodec::SaveFlux() //enregistrement de la liste remplie des datas images dans le flux de sortie en binaire
 {
-    FILE *file = fopen(this->FileName.c_str(), "w");
+    FILE *file = fopen("image_compress", "w");
     std::list<Image>::iterator	it;
     int width=0,height=0;
     int count = 0;
@@ -81,7 +81,6 @@ void		VideoCodec::SaveFlux() //enregistrement de la liste remplie des datas imag
 		}
 	    fprintf(file, "%c", 'Q');
 	    fclose(file);
-	    //this->compression(width,height);
 	}
 }
 
@@ -93,8 +92,8 @@ void		VideoCodec::compression()
     Huffman huf;
     //fpos_t position; // not used
 
-    FILE *source_file = fopen(this->FileName.c_str(), "r");
-    FILE *dest_file = fopen("image_compress", "w");
+    FILE *source_file = fopen("image_compress", "r");
+    FILE *dest_file = fopen(this->FileName.c_str(), "w");
     usize = get_file_size(source_file);
 
     sour = new unsigned char[usize];
@@ -105,11 +104,11 @@ void		VideoCodec::compression()
 
     fclose(source_file);
     fclose(dest_file);
-    //    remove(this->FileName.c_str());
+    remove("image_compress");
     std::cout << "Deleting source file" << std::endl;
 }
 
-void	VideoCodec::decompression()
+void	VideoCodec::decompression(std::string file)
 {
     std::cout << "Starting decompressing image" << std::endl;
     unsigned char *dest,*sour;
@@ -118,7 +117,7 @@ void	VideoCodec::decompression()
     Huffman huf;
 
     FILE *dest_file = fopen("image_decompress", "w");
-    FILE *source_file = fopen("image_compress", "r");
+    FILE *source_file = fopen(file.c_str(), "r");
     if (source_file == NULL || dest_file == NULL)
 	std::cout << "impossible d'ouvrir le fichier" << std::endl;
     csize = get_file_size(source_file);
