@@ -37,9 +37,14 @@ int				main ()
 	std::cout << "\t2. uncompress" << std::endl;
 	std::cin >> c;
 	if (c == '1')
-		test.compressImage("C:\\Documents and Settings\\EPITECH\\Bureau\\epitech.jpg");
+	{
+		test.compressImage("/media/local/Images/ipod/100APPLE/IMG_0008.JPG");
+		test.compressImage("/media/local/Images/ipod/100APPLE/IMG_0008.JPG");
+		test.compressImage("/media/local/Images/ipod/100APPLE/IMG_0008.JPG");
+		test.saveVideo("test.eip");
+	}
 	else if (c == '2')
-		test.uncompressImage();
+		test.uncompressImage("test.eip");
 	return 0;
     return (0);
 }
