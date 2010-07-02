@@ -1,7 +1,7 @@
 #include <cstdlib>
 
 #include		<iostream>
-#include		"video_codec/MCodec.h"
+#include		"video_codec/Mcodec.h"
 
 int **oneD_twoD(short int * src, int height, int width)
 {

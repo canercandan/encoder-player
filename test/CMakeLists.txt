@@ -33,13 +33,12 @@ SET (TEST_LIST
   t-opencv
   t-audio_codec1
   t-webcam
-  t-aquisition_son
   t-video_codec1
   )
 
 FOREACH (test ${TEST_LIST})
   ADD_EXECUTABLE(${test} "${test}.cpp")
-  TARGET_LINK_LIBRARIES(${test} ${X_OPENCV_LIBRARIES} audio_codec video_codec)
+  TARGET_LINK_LIBRARIES(${test} ${X_OPENCV_LIBRARIES} ${QT_LIBRARIES} audio_codec video_codec qopencv)
   ADD_TEST(${test} ${test})
 ENDFOREACH (test)
 

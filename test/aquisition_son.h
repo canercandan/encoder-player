@@ -8,7 +8,10 @@
 #include <QPushButton>
 #include <QComboBox>
 
-#include <qaudioinput.h>
+#include <QAudioDeviceInfo>
+#include <QAudioInput>
+
+//#include <qaudioinput.h>
 
 class AudioInfo : public QIODevice
 {
@@ -66,6 +69,5 @@ private:
 
     char *buffer;
 };
-
 
 #endif // !aquisition_H
