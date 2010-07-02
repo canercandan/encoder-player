@@ -30,7 +30,7 @@ int main (int argc, char** argv)
       return 0;
     }
 
-  std::cout << "USAGE: ./huffman [options] filename" << std::endl
+  std::cout << "USAGE: ./t-audio_codec1 [options] filename" << std::endl
 	    << "Options:" << std::endl
 	    << "\t-c, \tCompress a file" << std::endl
 	    << "\t-d, \tDecompress a file" << std::endl;

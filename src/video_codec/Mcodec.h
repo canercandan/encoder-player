@@ -30,7 +30,7 @@ public:
     /**
      *extract the information from a file
      **/
-    void	uncompressImage(std::string);
+    void	uncompressImage(std::string, std::vector< IplImage* >&);
     void	saveVideo(std::string);
     void	saveImage(short int*,int,int,IplImage*);
     void	setRecontructionImage(int,int);

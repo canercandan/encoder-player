@@ -1,6 +1,11 @@
 #ifndef MOVIEPLAYER_H
 #define MOVIEPLAYER_H
 
+#include <opencv/cv.h>
+#include <opencv/highgui.h>
+
+#include "MyCameraWindow.h"
+
 #include <QWidget>
 #include <QDebug>
 
@@ -22,6 +27,8 @@ class MoviePlayer : public QWidget
 
 public:
     MoviePlayer(QWidget *parent = 0);
+    ~MoviePlayer();
+
     void openFile(const QString &fileName);
 
 private slots:
@@ -59,6 +66,9 @@ private:
     QGridLayout *controlsLayout;
     QHBoxLayout *buttonsLayout;
     QVBoxLayout *mainLayout;
+
+    MyCameraWindow *cameraWindow;
+    CvCapture *camera;
 };
 
 #endif

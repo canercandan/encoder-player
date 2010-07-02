@@ -1,4 +1,5 @@
 #include <QtGui>
+#include <QtDebug>
 
 #include "MoviePlayer.h"
 
@@ -34,14 +35,36 @@ MoviePlayer::MoviePlayer(QWidget *parent)
     updateFrameSlider();
     updateButtons();
 
-    setWindowTitle(tr("Movie Player"));
+    setWindowTitle(tr("Epitivo"));
+
     resize(400, 400);
+
+    camera = cvCreateCameraCapture(-1);
+    assert(camera);
+
+    {
+	IplImage * image = cvQueryFrame(camera);
+	assert(image);
+
+	qDebug() << "Image depth=" << image->depth;
+	qDebug() << "Image nChannels=" << image->nChannels;
+    }
+
+    cameraWindow = new MyCameraWindow(camera, this);
+    cameraWindow->setWindowTitle("OpenCV --> QtImage");
+    cameraWindow->hide();
+}
+
+MoviePlayer::~MoviePlayer()
+{
+    delete cameraWindow;
+    cvReleaseCapture(&camera);
 }
 
 void MoviePlayer::open()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open a Movie"),
-                               currentMovieDirectory);
+						    currentMovieDirectory);
     if (!fileName.isEmpty())
         openFile(fileName);
 }
@@ -60,6 +83,34 @@ void MoviePlayer::myForward()
 
 void MoviePlayer::myRec()
 {
+    qDebug() << "rec";
+
+    if ( ! cameraWindow->isVisible() )
+	{
+	    qDebug() << "We are going to start recording...";
+	}
+    else
+	{
+	    qDebug() << "We are compressing and saving in a file...";
+
+	    QString fileName = QFileDialog::getSaveFileName(this, tr("Save a Movie"),
+							    currentMovieDirectory);
+	    if (!fileName.isEmpty())
+		{
+		    unsigned int size = 0;
+		    assert(size > 0);
+
+		    Mcodec video_codec;
+
+		    for (unsigned int i = 0; i < size; ++i)
+			{
+			    video_codec.compressImage();
+			}
+		}
+
+	}
+
+    cameraWindow->setVisible( ! cameraWindow->isVisible() );
 }
 
 void MoviePlayer::openFile(const QString &fileName)
@@ -75,19 +126,19 @@ void MoviePlayer::openFile(const QString &fileName)
     qDebug() << "The extension found is: " << fileExtension.c_str();
 
     if (fileExtension.compare("epi") == 0)
-    {
-         qDebug() << "Ok it is a EPITIVO file";
-    }
+	{
+	    qDebug() << "Ok it is a EPITIVO file";
+	}
     else
-    {
-        movie->stop();
-        movieLabel->setMovie(movie);
-        movie->setFileName(fileName);
-        movie->start();
+	{
+	    movie->stop();
+	    movieLabel->setMovie(movie);
+	    movie->setFileName(fileName);
+	    movie->start();
 
-        updateFrameSlider();
-        updateButtons();
-    }
+	    updateFrameSlider();
+	    updateButtons();
+	}
 }
 
 void MoviePlayer::goToFrame(int frame)
@@ -105,17 +156,26 @@ void MoviePlayer::updateFrameSlider()
 {
     bool hasFrames = (movie->currentFrameNumber() >= 0);
 
-    if (hasFrames) {
-        if (movie->frameCount() > 0) {
-            frameSlider->setMaximum(movie->frameCount() - 1);
-        } else {
-            if (movie->currentFrameNumber() > frameSlider->maximum())
-                frameSlider->setMaximum(movie->currentFrameNumber());
-        }
-        frameSlider->setValue(movie->currentFrameNumber());
-    } else {
-        frameSlider->setMaximum(0);
-    }
+    if (hasFrames)
+	{
+	    if (movie->frameCount() > 0)
+		{
+		    frameSlider->setMaximum(movie->frameCount() - 1);
+		}
+	    else
+		{
+		    if (movie->currentFrameNumber() > frameSlider->maximum())
+			{
+			    frameSlider->setMaximum(movie->currentFrameNumber());
+			}
+		}
+	    frameSlider->setValue(movie->currentFrameNumber());
+	}
+    else
+	{
+	    frameSlider->setMaximum(0);
+	}
+
     frameLabel->setEnabled(hasFrames);
     frameSlider->setEnabled(hasFrames);
 }
@@ -136,7 +196,7 @@ void MoviePlayer::createControls()
     frameLabel = new QLabel(tr("Volume:"));
 
     frameSlider = new QSlider(Qt::Horizontal);
- //   frameSlider->setTickPosition(QSlider::TicksBelow);
+    //   frameSlider->setTickPosition(QSlider::TicksBelow);
     frameSlider->setTickInterval(10);
 
     speedLabel = new QLabel(tr("Speed:"));
@@ -147,11 +207,11 @@ void MoviePlayer::createControls()
     speedSpinBox->setSuffix(tr("%"));
 
     controlsLayout = new QGridLayout;
-//    controlsLayout->addWidget(fitCheckBox, 0, 0, 1, 2);
+    //    controlsLayout->addWidget(fitCheckBox, 0, 0, 1, 2);
     controlsLayout->addWidget(frameLabel, 1, 0);
     controlsLayout->addWidget(frameSlider, 1, 1, 1, 2);
-//    controlsLayout->addWidget(speedLabel, 2, 0);
-//    controlsLayout->addWidget(speedSpinBox, 2, 1);
+    //    controlsLayout->addWidget(speedLabel, 2, 0);
+    //    controlsLayout->addWidget(speedSpinBox, 2, 1);
 }
 
 void MoviePlayer::createButtons()
@@ -174,7 +234,8 @@ void MoviePlayer::createButtons()
     playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
     playButton->setIconSize(iconSize);
     playButton->setToolTip(tr("Play"));
-    connect(playButton, SIGNAL(clicked()), this, SLOT(myStart()));
+    //connect(playButton, SIGNAL(clicked()), this, SLOT(myStart()));
+    connect(playButton, SIGNAL(clicked()), movie, SLOT(start()));
 
     forwardButton = new QToolButton;
     forwardButton->setIcon(style()->standardIcon(QStyle::SP_MediaSkipForward));
