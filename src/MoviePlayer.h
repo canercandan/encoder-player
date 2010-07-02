@@ -29,6 +29,7 @@ private slots:
     void myForward();
     void myStart();
     void myBackward();
+    void myRec();
     void goToFrame(int frame);
     void fitToWindow();
     void updateButtons();
@@ -46,6 +47,7 @@ private:
     QToolButton *playButton;
     QToolButton *forwardButton;
     QToolButton *pauseButton;
+    QToolButton *recButton;
     QToolButton *stopButton;
     QToolButton *quitButton;
     QCheckBox *fitCheckBox;

@@ -5,6 +5,11 @@
 FILE(GLOB SOURCES *.cpp)
 SET(SAMPLE_SRCS ${SOURCES} PARENT_SCOPE)
 
+SET(SAMPLE_MOC_HDRS
+  ${CMAKE_CURRENT_SOURCE_DIR}/MoviePlayer.h
+  PARENT_SCOPE
+  )
+
 ######################################################################################
 
 
