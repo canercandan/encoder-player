@@ -85,7 +85,7 @@ void							Mcodec::uncompressImage(std::string file)
 		height = it->getHeight();
 		temp = new CvScalar[height * width];
 		image = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, 3);
-		for (int i = 0; i < width; i++)
+		for (int i = 0; i < width; i+=3)
 			for (int j = 0, index = 0; j < height; j++, index += 3)
 			{
 				temp[i * height + j].val[0] = tab[i * height + index];
