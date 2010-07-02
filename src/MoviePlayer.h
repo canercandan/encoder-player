@@ -5,6 +5,7 @@
 #include <opencv/highgui.h>
 
 #include "MyCameraWindow.h"
+#include "MyMovieWindow.h"
 
 #include <QWidget>
 #include <QDebug>
@@ -69,6 +70,8 @@ private:
 
     MyCameraWindow *cameraWindow;
     CvCapture *camera;
+
+    MyMovieWindow* movieWindow;
 };
 
 #endif

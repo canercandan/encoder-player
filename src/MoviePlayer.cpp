@@ -2,6 +2,7 @@
 #include <QtDebug>
 
 #include "MoviePlayer.h"
+#include "video_codec/Mcodec.h"
 
 MoviePlayer::MoviePlayer(QWidget *parent)
     : QWidget(parent)
@@ -37,22 +38,24 @@ MoviePlayer::MoviePlayer(QWidget *parent)
 
     setWindowTitle(tr("Epitivo"));
 
-    resize(400, 400);
+    resize(600, 500);
 
     camera = cvCreateCameraCapture(-1);
-    assert(camera);
+    //assert(camera);
 
     {
 	IplImage * image = cvQueryFrame(camera);
-	assert(image);
+	//assert(image);
 
 	qDebug() << "Image depth=" << image->depth;
 	qDebug() << "Image nChannels=" << image->nChannels;
     }
 
     cameraWindow = new MyCameraWindow(camera, this);
-    cameraWindow->setWindowTitle("OpenCV --> QtImage");
     cameraWindow->hide();
+
+    movieWindow = new MyMovieWindow(this);
+    movieWindow->hide();
 }
 
 MoviePlayer::~MoviePlayer()
@@ -88,29 +91,40 @@ void MoviePlayer::myRec()
     if ( ! cameraWindow->isVisible() )
 	{
 	    qDebug() << "We are going to start recording...";
+
+	    movieWindow->stop();
+	    movieWindow->hide();
+
+	    cameraWindow->start();
 	}
     else
 	{
 	    qDebug() << "We are compressing and saving in a file...";
 
+	    cameraWindow->stop();
+	    cameraWindow->hide();
+
+	    movieWindow->show();
+
 	    QString fileName = QFileDialog::getSaveFileName(this, tr("Save a Movie"),
 							    currentMovieDirectory);
 	    if (!fileName.isEmpty())
 		{
-		    unsigned int size = 0;
-		    assert(size > 0);
+		    std::vector< IplImage* > images = cameraWindow->getImages();
+
+		    unsigned int size = images.size();
+		    //assert(size > 0);
 
 		    Mcodec video_codec;
 
 		    for (unsigned int i = 0; i < size; ++i)
 			{
-			    video_codec.compressImage();
+			    video_codec.compressImage(images[i]);
 			}
+
+		    video_codec.saveVideo(fileName.toStdString());
 		}
-
 	}
-
-    cameraWindow->setVisible( ! cameraWindow->isVisible() );
 }
 
 void MoviePlayer::openFile(const QString &fileName)
@@ -128,9 +142,24 @@ void MoviePlayer::openFile(const QString &fileName)
     if (fileExtension.compare("epi") == 0)
 	{
 	    qDebug() << "Ok it is a EPITIVO file";
+
+	    std::vector< IplImage* > images;
+
+	    Mcodec video_codec;
+
+	    video_codec.uncompressImage(fileName.toStdString(), images);
+
+	    //assert(images.size() > 0);
+
+	    movieWindow->setImages(images);
+	    movieWindow->start();
 	}
     else
 	{
+	    connect(playButton, SIGNAL(clicked()), movie, SLOT(start()));
+	    connect(pauseButton, SIGNAL(clicked(bool)), movie, SLOT(setPaused(bool)));
+	    connect(stopButton, SIGNAL(clicked()), movie, SLOT(stop()));
+
 	    movie->stop();
 	    movieLabel->setMovie(movie);
 	    movie->setFileName(fileName);
@@ -235,7 +264,7 @@ void MoviePlayer::createButtons()
     playButton->setIconSize(iconSize);
     playButton->setToolTip(tr("Play"));
     //connect(playButton, SIGNAL(clicked()), this, SLOT(myStart()));
-    connect(playButton, SIGNAL(clicked()), movie, SLOT(start()));
+    //connect(playButton, SIGNAL(clicked()), movie, SLOT(start()));
 
     forwardButton = new QToolButton;
     forwardButton->setIcon(style()->standardIcon(QStyle::SP_MediaSkipForward));

@@ -1,10 +1,9 @@
+#include <cassert>
 #include <cstdlib>
+#include <cstring>
+
 #include <iostream>
 #include <fstream>
-#include <cstdio>
-#include <cstdlib>
-#include <iostream>
-#include <cstring>
 
 #include "Huffman.h"
 #include "DCT.h"
@@ -131,20 +130,20 @@ void	VideoCodec::decompression(std::string file)
     std::cout << "decompressing finish" << std::endl;
 }
 
-std::list<Image>		VideoCodec::lectureFichier()
+std::list<Image> VideoCodec::lectureFichier()
 {
     std::cout << "Starting reading file" << std::endl;
-    int				height,width,i,j,flag;
-    int				*imgDec;
-    std::string		str;
-    char			c = 'a';
-    char			a = 'a';
-    int				count = 0;
+
+    int	height,width,i,j,flag;
+    int* imgDec;
+    std::string str;
+    char c = 'a';
+    int	count = 0;
     i = j = flag=0;
 
+    FILE* f = fopen("image_decompress", "r");
+    std::cout << "here" << std::endl;
 
-    FILE			*f = fopen("image_decompress", "r");
-	std::cout << "here" << std::endl;
     while (flag != 3)
 	{
 	    if (flag == 1)
@@ -170,8 +169,11 @@ std::list<Image>		VideoCodec::lectureFichier()
 	}
 
     std::cout << width << "x" << height << std::endl;
-    imgDec = new int[height * width * 3];
-	i = 0;
+
+    imgDec = new int[height * width * 100];
+
+    i = 0;
+
     while (c != 'Q')
 	{
 	    if (flag == 1)
@@ -188,11 +190,14 @@ std::list<Image>		VideoCodec::lectureFichier()
 		}
 	    else
 		{
+		    assert( i < (height * width * 100));
+
 		    imgDec[i] = atoi(str.c_str());
 		    flag = 1;
 		    i++;
 		}
 	}
+
     fclose(f);
     return (this->ListImage);
 }

@@ -114,7 +114,7 @@ void	Mcodec::uncompressImage(std::string file, std::vector< IplImage* > & images
 		}
 
 	    images.push_back(image);
-	    this->dislay_picture(image);
+	    //this->dislay_picture(image);
 
 	    delete [] temp;
 	}
