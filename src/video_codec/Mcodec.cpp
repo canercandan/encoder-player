@@ -48,12 +48,12 @@ void				Mcodec::compressImage(std::string image_path)
 	    for(y=0; y < width; y++)
 			temp[x * width + y] = cvGet2D(image, x, y);
 	img = new int[height * width * 3];
-	for (int i = 0; i < height; i++)
-		for (int j = 0, index = 0; j < width; j++, index += 3)
+	for (int i = 0; i < width; i++)
+		for (int j = 0, index = 0; j < height; j++, index += 3)
 		{
-			img[i * width + index] = (int)temp[i * width + j].val[0];
-			img[i * width + index + 1] = (int)temp[i * width + j].val[1];
-			img[i * width + index + 2] = (int)temp[i * width + j].val[2];
+			img[i * height + index] = (int)temp[i * height + j].val[0];
+			img[i * height + index + 1] = (int)temp[i * height + j].val[1];
+			img[i * height + index + 2] = (int)temp[i * height + j].val[2];
 		}
 	VC.SaveImgInList(img, height, width);
 	VC.createFile("test.guigui");
@@ -83,6 +83,7 @@ void							Mcodec::uncompressImage()
 	for (it = infos.begin(); it != infos.end(); it++)
 	{
 		int *tab = it->getTab();
+	
 		width = it->getWidth();
 		height = it->getHeight();
 		temp = new CvScalar[height * width];
