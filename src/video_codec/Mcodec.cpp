@@ -88,12 +88,12 @@ void							Mcodec::uncompressImage()
 		height = it->getHeight();
 		temp = new CvScalar[height * width];
 		image = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, 3);
-		for (int i = 0; i < height; i++)
-			for (int j = 0, index = 0; j < width; j++, index += 3)
+		for (int i = 0; i < width; i++)
+			for (int j = 0, index = 0; j < height; j++, index += 3)
 			{
-				temp[i * width + j].val[0] = tab[i * width + index];
-				temp[i * width + j].val[1] = tab[i * width + index + 1];
-				temp[i * width + j].val[2] = tab[i * width + index + 2];
+				temp[i * height + j].val[0] = tab[i * height + index];
+				temp[i * height + j].val[1] = tab[i * height + index + 1];
+				temp[i * height + j].val[2] = tab[i * height + index + 2];
 			}
 		for (int x = 0; x < height; x++)
 			for(int y = 0; y < width; y++)
