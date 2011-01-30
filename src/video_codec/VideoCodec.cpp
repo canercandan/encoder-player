@@ -190,7 +190,7 @@ std::list<Image> VideoCodec::lectureFichier()
 		}
 	    else
 		{
-		    assert( i < (height * width * 100));
+		    //assert( i < (height * width * 100));
 
 		    imgDec[i] = atoi(str.c_str());
 		    flag = 1;

@@ -36,16 +36,24 @@ MoviePlayer::MoviePlayer(QWidget *parent)
     updateFrameSlider();
     updateButtons();
 
-    setWindowTitle(tr("MyPlayer"));
+    setWindowTitle(tr("Epitivo"));
 
     resize(600, 500);
 
     camera = cvCreateCameraCapture(-1);
-    //assert(camera);
+
+    if (! camera)
+	{
+	    qFatal("Unable to start capturing");
+	}
 
     {
 	IplImage * image = cvQueryFrame(camera);
-	//assert(image);
+
+	if (! image )
+	    {
+		qFatal("Unable to get a frame from capture device");
+	    }
 
 	qDebug() << "Image depth=" << image->depth;
 	qDebug() << "Image nChannels=" << image->nChannels;
@@ -113,16 +121,22 @@ void MoviePlayer::myRec()
 		    std::vector< IplImage* > images = cameraWindow->getImages();
 
 		    unsigned int size = images.size();
-		    //assert(size > 0);
 
-		    Mcodec video_codec;
-
-		    for (unsigned int i = 0; i < size; ++i)
+		    if (size > 0)
 			{
-			    video_codec.compressImage(images[i]);
-			}
+			    Mcodec video_codec;
 
-		    video_codec.saveVideo(fileName.toStdString());
+			    for (unsigned int i = 0; i < size; ++i)
+				{
+				    video_codec.compressImage(images[i]);
+				}
+
+			    video_codec.saveVideo(fileName.toStdString());
+			}
+		    else
+			{
+			    qWarning("Not enough frame captured to make a record.");
+			}
 		}
 	}
 }
@@ -141,7 +155,7 @@ void MoviePlayer::openFile(const QString &fileName)
 
     if (fileExtension.compare("epi") == 0)
 	{
-	    qDebug() << "Ok it is a MYPLAYER file";
+	    qDebug() << "Ok it is a EPITIVO file";
 
 	    std::vector< IplImage* > images;
 

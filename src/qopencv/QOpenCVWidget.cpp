@@ -11,7 +11,7 @@ QOpenCVWidget::QOpenCVWidget(QWidget *parent) : QWidget(parent)
     layout = new QVBoxLayout;
     imagelabel = new QLabel;
 
-    QImage dummy(100, 100, QImage::Format_RGB32);
+    QImage dummy(600, 400, QImage::Format_RGB32);
 
     image = dummy;
     layout->addWidget(imagelabel);
