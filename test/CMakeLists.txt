@@ -54,6 +54,6 @@ ENDFOREACH (test)
 ADD_SUBDIRECTORY(qt_interface)
 ADD_SUBDIRECTORY(qt_opencv)
 ADD_SUBDIRECTORY(movie)
-ADD_SUBDIRECTORY(audioinput)
+#ADD_SUBDIRECTORY(audioinput)
 
 ######################################################################################
