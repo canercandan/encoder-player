@@ -36,7 +36,7 @@ MoviePlayer::MoviePlayer(QWidget *parent)
     updateFrameSlider();
     updateButtons();
 
-    setWindowTitle(tr("Epitivo"));
+    setWindowTitle(tr("MyPlayer"));
 
     resize(600, 500);
 
@@ -141,7 +141,7 @@ void MoviePlayer::openFile(const QString &fileName)
 
     if (fileExtension.compare("epi") == 0)
 	{
-	    qDebug() << "Ok it is a EPITIVO file";
+	    qDebug() << "Ok it is a MYPLAYER file";
 
 	    std::vector< IplImage* > images;
 

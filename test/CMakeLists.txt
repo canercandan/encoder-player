@@ -1,6 +1,6 @@
 ###############################################################################
 ##
-## CMakeLists file for epitivo/test
+## CMakeLists file for myplayer/test
 ##
 ###############################################################################
 
@@ -36,11 +36,11 @@ SET (TEST_LIST
   t-video_codec1
   )
 
-SET(EPITIVO_LIBS video_codec audio_codec qopencv)
+SET(MYPLAYER_LIBS video_codec audio_codec qopencv)
 
 FOREACH (test ${TEST_LIST})
   ADD_EXECUTABLE(${test} "${test}.cpp")
-  TARGET_LINK_LIBRARIES(${test} ${EPITIVO_LIBS} ${X_OPENCV_LIBRARIES} ${QT_LIBRARIES})
+  TARGET_LINK_LIBRARIES(${test} ${MYPLAYER_LIBS} ${X_OPENCV_LIBRARIES} ${QT_LIBRARIES})
   ADD_TEST(${test} ${test})
 ENDFOREACH (test)
 

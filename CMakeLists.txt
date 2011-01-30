@@ -5,7 +5,7 @@
 # Checks cmake version compatibility
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
-PROJECT(epitivo)
+PROJECT(myplayer)
 
 SET(PROJECT_VERSION_MAJOR 1)
 SET(PROJECT_VERSION_MINOR 0)
@@ -19,8 +19,8 @@ SET(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT
 ### 2) Prepare some useful variables
 ######################################################################################
 
-SET(EPITIVO_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-SET(EPITIVO_BIN_DIR "${CMAKE_CURRENT_BINARY_DIR}")
+SET(MYPLAYER_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+SET(MYPLAYER_BIN_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 
 ######################################################################################
 
@@ -143,11 +143,11 @@ ADD_EXECUTABLE(
   ${SAMPLE_TRANS_SRCS}
   )
 
-SET(EPITIVO_LIBS video_codec audio_codec qopencv)
+SET(MYPLAYER_LIBS video_codec audio_codec qopencv)
 
 TARGET_LINK_LIBRARIES(
   ${PROJECT_NAME}
-  ${EPITIVO_LIBS}
+  ${MYPLAYER_LIBS}
   ${X_OPENCV_LIBRARIES}
   ${QT_LIBRARIES}
   )

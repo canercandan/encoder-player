@@ -83,7 +83,7 @@ void MoviePlayer::openFile(const QString &fileName)
 
     if (fileExtension.compare("epi") == 0)
     {
-         qDebug() << "Ok it is a EPITIVO file";
+         qDebug() << "Ok it is a MYPLAYER file";
     }
     else
     {

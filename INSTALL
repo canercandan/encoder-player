@@ -14,7 +14,7 @@ How to Install:
 
 5) Use the Makefile to generate binary with the command: make
 
-6) A binary has been normally generated into "build" called "epitivo"
+6) A binary has been normally generated into "build" called "myplayer"
 
 ################################################################################
 
